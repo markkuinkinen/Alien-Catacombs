@@ -6,7 +6,6 @@ public class ProjectileController : MonoBehaviour
 {
     UIController UIController;
     Rigidbody2D rb;
-    Transform trans;
     private Vector2 direction;
     private float projectileSpeed = 5f;
 
@@ -15,7 +14,7 @@ public class ProjectileController : MonoBehaviour
 
     void Start()
     {
-        trans = GetComponent<Transform>();
+        //trans = GetComponent<Transform>();
         UIController = FindObjectOfType<UIController>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -46,6 +45,14 @@ public class ProjectileController : MonoBehaviour
         else
         {
             rb.velocity = Vector3.zero;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Wall")
+        {
+            Destroy(this.gameObject);
         }
     }
 }

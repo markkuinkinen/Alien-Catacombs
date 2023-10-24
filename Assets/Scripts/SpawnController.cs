@@ -44,8 +44,12 @@ public class SpawnController : MonoBehaviour
     {
         yield return new WaitForSeconds(interval);
 
-        GameObject spawnedEnemy = Instantiate(enemy, new Vector3(player.GetComponent<Transform>().position.x - 13f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
-        GameObject secondSpawnedEnemy = Instantiate(enemy, new Vector3(player.transform.position.x + 13f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+        //make array of positions and random range it
+        //spawns enemies to the left side of the player camera
+        GameObject spawnedEnemy = Instantiate(enemy, new Vector3(player.GetComponent<Transform>().position.x - 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+
+        //spawns enemies to the right side of the player camera 
+        GameObject secondSpawnedEnemy = Instantiate(enemy, new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
         StartCoroutine(spawnEnemies(interval, enemy));
     }
 

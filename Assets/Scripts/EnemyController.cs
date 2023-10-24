@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     Rigidbody2D rb;
     PlayerController player;
     private float movespeed = 2f;
+    public Transform centreOfEnemy;
 
     //give hp to lower
 
@@ -29,11 +30,15 @@ public class EnemyController : MonoBehaviour
         }
 
     }
+    
 
     void FollowPlayer()
     {
         Vector3 direction = (player.GetComponent<Transform>().position - this.transform.position).normalized;
         transform.Translate(direction * movespeed * Time.deltaTime);
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        centreOfEnemy.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
 
     void OnTriggerEnter2D(Collider2D other)
