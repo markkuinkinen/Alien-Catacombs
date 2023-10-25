@@ -26,12 +26,12 @@ public class CameraScript : MonoBehaviour
     void MoveX()    //tracks player up until the border 
     {
 
-        if (player.transform.position.x > -52 && player.transform.position.x < 52)
+        if (player.transform.position.x > -51 && player.transform.position.x < 51)
         {
             xPos = player.transform.position.x;
         }
 
-        if (player.transform.position.y > -35 && player.transform.position.y < 35)
+        if (player.transform.position.y > -34 && player.transform.position.y < 34)
         {
             yPos = player.transform.position.y;
         }
