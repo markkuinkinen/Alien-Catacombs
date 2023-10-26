@@ -5,26 +5,30 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     UIController UIController;
+    GunController gunController;
     GameController GameController;
     Rigidbody2D rb;
     PlayerController player;
-    private float movespeed = 2f;
     public Transform centreOfEnemy;
 
     //give hp to lower
+    private float movespeed = 2f;
+    private float health = 20;
 
+    public bool canMove; //delete
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<PlayerController>();
         UIController = FindObjectOfType<UIController>();
-        GameController = FindObjectOfType<GameController>(); 
+        GameController = FindObjectOfType<GameController>();
+        gunController = FindObjectOfType<GunController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!UIController.isPaused)
+        if (!UIController.isPaused && canMove) //delete
         {
             FollowPlayer();
         }
@@ -45,9 +49,13 @@ public class EnemyController : MonoBehaviour
     {
         if (other.tag == "Projectile")
         {
-            GameController.giveExp(100);
-            Destroy(this.gameObject);
-            Destroy(other.gameObject);
+            health -= gunController.getAmmoDamage();
+            if (health == 0)
+            {
+                GameController.giveExp(100);
+                Destroy(this.gameObject);  //change
+            }
+
         }
     }
 }

@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
 
     public int playerLevel = 0;
     [SerializeField]
-    private float pointsToLevel = 1500;
+    private float pointsToLevel = 5000;
     [SerializeField]
     private float currentExp = 0;
     public float totalExp;

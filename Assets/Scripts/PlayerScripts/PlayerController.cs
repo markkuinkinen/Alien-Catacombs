@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     UIController UIController;
     public Transform centreTransform;   // to control the rotation for the player sprite
+    public GunController gunController;
     Rigidbody2D rb;
     Camera camera;
     public GameObject projectile;
@@ -54,11 +55,18 @@ public class PlayerController : MonoBehaviour
         centreTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
 
 
-        if (Input.GetMouseButtonDown(0))
+        /*if (Input.GetMouseButtonDown(0))
         {
             GameObject projectileClone = Instantiate(projectile, projectileSpawnLoc.GetComponent<Transform>().position, projectileSpawnLoc.GetComponent<Transform>().rotation);
             Vector2 direction = ((Vector2)mousePos - (Vector2)transform.position);//.normalized; //hella speedy when not normalised 
             projectileClone.GetComponent<ProjectileController>().SetDirection(direction);
+        }*/
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 direction = ((Vector2)mousePos - (Vector2)transform.position);//.normalized; //hella speedy when not normalised 
+
+            gunController.Shoot(direction);
         }
     }
 

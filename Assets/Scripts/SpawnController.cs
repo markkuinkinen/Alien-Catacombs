@@ -5,11 +5,19 @@ using UnityEngine;
 public class SpawnController : MonoBehaviour
 {
     UIController UIController;
+    GameController gameController;
     PlayerController player;
     [SerializeField]
     private GameObject enemyPrefab;
 
-    private float spawnInterval = 1f;
+    public GameObject wormEnemy;           //0
+    public GameObject eyeballEnemy;        //1
+    public GameObject alienSoldierEnemy;   //2
+    public GameObject eggBugEnemy;         //3     TODO
+    public GameObject bossEnemy;           //4     TODO
+    private GameObject[] spawnableEnemies;
+
+    private float spawnInterval = 2.5f;
 
 
     //ADD MORE ENEMIES WITH DIFFERENT HP/SPEED/LOOK
@@ -17,10 +25,13 @@ public class SpawnController : MonoBehaviour
 
     void Start()
     {
+        gameController = FindObjectOfType<GameController>();
         player = FindObjectOfType<PlayerController>();
         UIController = FindObjectOfType<UIController>();
         StartCoroutine(spawnEnemies(spawnInterval, enemyPrefab));
         StartCoroutine(spawnEnemies(spawnInterval, enemyPrefab));
+
+        spawnableEnemies = new GameObject[] {wormEnemy, eyeballEnemy, alienSoldierEnemy, eggBugEnemy, bossEnemy };
     }
 
     private void Update()

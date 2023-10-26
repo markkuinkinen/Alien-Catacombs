@@ -10,6 +10,13 @@ public class ProjectileController : MonoBehaviour
     private float projectileSpeed = 5f;
 
     //give numerical damage
+    //projectiles have health
+    //player sets type when instantiating
+
+    private int projectileHealth;   //if bullets go through enemies
+    
+    //rifle: 10, laser: 20, rocket: 20
+    private int projectileDamage = 10;
 
 
     void Start()
@@ -19,8 +26,22 @@ public class ProjectileController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    public void setProjectileHealth(int Health)
+    {
+        projectileHealth = Health;
+    }
 
-    public void SetDirection(Vector2 direction)     //sets the direction and angle of the projectile
+    public void setProjectileSpeed(float Speed)
+    {
+        projectileSpeed = Speed;
+    }
+
+    public void setProjectileDamage(int Damage)
+    {
+        projectileDamage = Damage;
+    }
+
+    public void SetDirection(Vector2 direction)     //sets the direction and angle/rotation of the projectile
     {
         this.direction = direction;
 
@@ -30,16 +51,12 @@ public class ProjectileController : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
 
-    private void OnDestroy()
-    {
-        //destroy if +-20 from player 
-    }
 
     void Update()
     {
         if (!UIController.isPaused)
         {
-            rb.velocity = direction * projectileSpeed;
+            rb.velocity = (direction * projectileSpeed).normalized * 10f;
 
         }
         else
@@ -53,6 +70,16 @@ public class ProjectileController : MonoBehaviour
         if (collision.tag == "Wall")
         {
             Destroy(this.gameObject);
+        }
+        
+        if (collision.tag == "Enemy")
+        {
+            projectileHealth -= 10;
+
+            if (projectileHealth == 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }
