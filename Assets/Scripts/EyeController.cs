@@ -8,6 +8,7 @@ public class EyeController : MonoBehaviour
     GameController GameController;
     Rigidbody2D rb;
     PlayerController player;
+    public GameObject eyeCurrency;
     private float movespeed = 2f;
     //public Transform centreOfEnemy;
 
@@ -45,6 +46,8 @@ public class EyeController : MonoBehaviour
     {
         if (other.tag == "Projectile")
         {
+            GameObject eyeDroppedCurrency = Instantiate(eyeCurrency, this.transform.position, this.transform.rotation);
+            eyeDroppedCurrency.GetComponent<CurrencyScript>().SetCurrencyAmount(15);
             GameController.giveExp(100);
             Destroy(this.gameObject);
             Destroy(other.gameObject);

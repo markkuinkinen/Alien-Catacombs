@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - RocketAmmo
   - LaserAmmo
+  - PlayerMagnet
   layers:
   - Default
   - TransparentFX

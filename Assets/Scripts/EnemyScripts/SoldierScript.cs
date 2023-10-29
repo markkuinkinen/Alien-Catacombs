@@ -9,8 +9,10 @@ public class SoldierScript : MonoBehaviour
     Rigidbody2D rb;
     PlayerController player;
     public Transform centreOfEnemy;
+    public GameObject soldierCurrency;
 
     private float movespeed = 1f;
+    [SerializeField]
     private int Health = 40;
 
     void Start()
@@ -45,16 +47,19 @@ public class SoldierScript : MonoBehaviour
     {
         if (other.tag == "Projectile")
         {
-            if (Health > 10)
+            Health -= other.GetComponent<ProjectileController>().GetProjectileDamage();
+
+            if (Health <= 0)
             {
-                Health -= 10;
-                Debug.Log(Health);
-                Destroy(other.gameObject);  //have to change for other projectiles
+                GameObject currencyDrop = Instantiate(soldierCurrency, this.transform.position, this.transform.rotation);
+                currencyDrop.GetComponent<CurrencyScript>().SetCurrencyAmount(20);
+                GameController.giveExp(200);
+                Destroy(this.gameObject);
+                Destroy(other.gameObject);
             }
             else
-            {
-                GameController.giveExp(100);
-                Destroy(this.gameObject);
+            { 
+                Debug.Log(Health);
                 Destroy(other.gameObject);
             }
             

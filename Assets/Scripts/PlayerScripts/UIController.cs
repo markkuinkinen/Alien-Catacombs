@@ -17,6 +17,7 @@ public class UIController : MonoBehaviour
     public string ZeroScore = "000000";
     public Text scoreText;
     public Text playerLevelText;
+    public Text currencyAmountText;
 
     public GameObject LevelMenu;
 
@@ -31,6 +32,7 @@ public class UIController : MonoBehaviour
     {
         trackLevelandScore();
         PauseGame();
+        trackCurrency();
     }
 
     void trackLevelandScore()
@@ -61,6 +63,11 @@ public class UIController : MonoBehaviour
         {
             scoreText.text = gameController.totalExp.ToString();
         }
+    }
+
+    void trackCurrency()
+    {
+        currencyAmountText.text = gameController.currencyAmount.ToString();
     }
 
     void PauseGame()

@@ -26,6 +26,11 @@ public class ProjectileController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    public int GetProjectileDamage()
+    {
+        return projectileDamage;
+    }
+
     public void setProjectileHealth(int Health)
     {
         projectileHealth = Health;

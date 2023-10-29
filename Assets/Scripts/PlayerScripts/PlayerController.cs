@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     Camera camera;
     public GameObject projectile;
     public GameObject projectileSpawnLoc;
+
+    public Vector2 projectileDirection;
     
     //public GameObject gun;
 
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(mouseDirection.y, mouseDirection.x) * Mathf.Rad2Deg;
         centreTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
 
+        projectileDirection = ((Vector2)mousePos - (Vector2)transform.position);    //test zone
 
         /*if (Input.GetMouseButtonDown(0))
         {
@@ -64,9 +67,13 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 direction = ((Vector2)mousePos - (Vector2)transform.position);//.normalized; //hella speedy when not normalised 
-
-            gunController.Shoot(direction);
+            //Vector2 direction = ((Vector2)mousePos - (Vector2)transform.position);//.normalized; //hella speedy when not normalised 
+            gunController.isShooting = true;
+            //gunController.Shoot(direction);
+        }
+        else if (Input.GetMouseButtonUp(0)) 
+        {
+            gunController.isShooting = false;
         }
     }
 

@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     private float currentExp = 0;
     public float totalExp;
     public Slider expSlider;
-
+    public int currencyAmount;
 
     void Start()
     {
@@ -31,6 +31,11 @@ public class GameController : MonoBehaviour
     {
         expSlider.maxValue = pointsToLevel;
         expSlider.value = currentExp;
+    }
+
+    public void addCurrency(int amount)
+    {
+        currencyAmount += amount;
     }
 
     void LevelUp()

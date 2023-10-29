@@ -33,9 +33,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1887317789121344299}
   - {fileID: 8748309501817470155}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3201895502661957846
 MonoBehaviour:
@@ -64,9 +65,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centreTransform: {fileID: 8748309501817470155}
-  gunController: {fileID: 0}
+  gunController: {fileID: 3979847196810227479}
   projectile: {fileID: 8929337150713892037, guid: a7360784cad10444fb9e270398a61b6a, type: 3}
   projectileSpawnLoc: {fileID: 5272646530609028568}
+  projectileDirection: {x: 0, y: 0}
   moveSpeed: 10
 --- !u!50 &1343999921076460167
 Rigidbody2D:
@@ -268,6 +270,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4234195483786097990}
+  - component: {fileID: 3979847196810227479}
+  - component: {fileID: 4911176281719204574}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -282,14 +286,77 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2818944853806116126}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.09220472, y: 0.473192, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8748309501817470155}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3979847196810227479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2818944853806116126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87441f58a6119cf418250cf5164a8772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  standardGunPicture: {fileID: 0}
+  laserGunPicture: {fileID: 0}
+  rocketGunPicture: {fileID: 0}
+  ammoAmountText: {fileID: 0}
+  heldStandard: {fileID: 5711545982241890526}
+  heldRocket: {fileID: 9056406593911854387}
+  heldLaser: {fileID: 7100726965965322708}
+  projectileSpawnLocation: {fileID: 5272646530609028568}
+  normalAmmo: {fileID: 8929337150713892037, guid: a7360784cad10444fb9e270398a61b6a, type: 3}
+  rocketAmmo: {fileID: 4797408475645070247, guid: b6c1a84b48ee89b44a0a0ff6a40ac3ff, type: 3}
+  laserAmmo: {fileID: 8766368667120193651, guid: 1abbbf5647af28846a4f83e2a02ff7c6, type: 3}
+  ammoAmount: 0
+  ammoHealth: 10
+  ammoSpeed: 5
+  rateOfFire: 1
+  isShooting: 0
+--- !u!58 &4911176281719204574
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2818944853806116126}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.025087476, y: 0.037631214}
+  serializedVersion: 2
+  m_Radius: 0.68815655
 --- !u!1 &2872115096639810470
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,6 +933,73 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8219405177164347806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887317789121344299}
+  - component: {fileID: 7330561793159629308}
+  m_Layer: 0
+  m_Name: PlayerMagnet
+  m_TagString: PlayerMagnet
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1887317789121344299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8219405177164347806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 766737590019339510}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &7330561793159629308
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8219405177164347806}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
 --- !u!1 &9056406593911854387
 GameObject:
   m_ObjectHideFlags: 0

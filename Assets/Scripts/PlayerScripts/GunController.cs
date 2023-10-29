@@ -23,6 +23,8 @@ public class GunController : MonoBehaviour
     public GameObject laserAmmo;        // 2
     private GameObject[] ammoType;
 
+    PlayerController player;
+
     [SerializeField]
     private int ammoAmount;
 
@@ -31,11 +33,16 @@ public class GunController : MonoBehaviour
     private int ammoDamage = 10;
     public int ammoHealth = 10;
     public float ammoSpeed = 5;   // 5 is base(standard)
+
+    public float rateOfFire = 10f;
+    public bool isShooting;
+    private bool isShootingCoroutineRunning = false;
     
     void Start()
     {
         ammoType = new GameObject[] { normalAmmo, rocketAmmo, laserAmmo};
         currentGun = 0;
+        player = FindObjectOfType<PlayerController>();
     }
 
     public int getAmmoDamage()
@@ -55,6 +62,26 @@ public class GunController : MonoBehaviour
                 ammoSpeed = 5;
             }
         }
+    }
+
+    public IEnumerator ShootingProjectiles()
+    {
+        // Check if the coroutine is already running
+        if (isShootingCoroutineRunning)
+        {
+            yield break; // Exit the coroutine if it's already running
+        }
+
+        isShootingCoroutineRunning = true; // Set the flag to indicate the coroutine is running
+
+        while (isShooting)
+        {
+            Shoot(player.projectileDirection);
+
+            yield return new WaitForSeconds(1f / rateOfFire); // Calculate delay based on rateOfFire
+        }
+
+        isShootingCoroutineRunning = false; // Reset the flag when the coroutine finishes
     }
 
     public void Shoot(Vector2 direction)
@@ -154,5 +181,23 @@ public class GunController : MonoBehaviour
     {
         revertGun();
         GunUISwapper();
+
+        if (isShooting)
+        {
+            // Start the coroutine only if it's not already running
+            if (!isShootingCoroutineRunning)
+            {
+                StartCoroutine(ShootingProjectiles());
+            }
+        }
+        else
+        {
+            // Stop the coroutine only if it's running
+            if (isShootingCoroutineRunning)
+            {
+                StopCoroutine(ShootingProjectiles());
+                isShootingCoroutineRunning = false; // Reset the flag when stopping the coroutine
+            }
+        }
     }
 }

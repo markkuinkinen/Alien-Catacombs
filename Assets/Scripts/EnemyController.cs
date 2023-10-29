@@ -7,9 +7,10 @@ public class EnemyController : MonoBehaviour
     UIController UIController;
     GunController gunController;
     GameController GameController;
-    Rigidbody2D rb;
     PlayerController player;
     public Transform centreOfEnemy;
+
+    public GameObject wormCurrency;
 
     //give hp to lower
     private float movespeed = 2f;
@@ -18,7 +19,6 @@ public class EnemyController : MonoBehaviour
     public bool canMove; //delete
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<PlayerController>();
         UIController = FindObjectOfType<UIController>();
         GameController = FindObjectOfType<GameController>();
@@ -49,9 +49,11 @@ public class EnemyController : MonoBehaviour
     {
         if (other.tag == "Projectile")
         {
-            health -= gunController.getAmmoDamage();
-            if (health == 0)
+            health -= other.GetComponent<ProjectileController>().GetProjectileDamage();
+            if (health <= 0)
             {
+                GameObject droppedCurrency = Instantiate(wormCurrency, this.transform.position, this.transform.rotation);
+                droppedCurrency.GetComponent<CurrencyScript>().SetCurrencyAmount(10);
                 GameController.giveExp(100);
                 Destroy(this.gameObject);  //change
             }
