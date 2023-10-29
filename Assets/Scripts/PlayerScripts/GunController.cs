@@ -30,11 +30,11 @@ public class GunController : MonoBehaviour
 
     private int currentGun;
     
-    private int ammoDamage = 10;
+    private int ammoDamage = 5;
     public int ammoHealth = 10;
-    public float ammoSpeed = 5;   // 5 is base(standard)
+    public float ammoSpeed = 12;   // 5 is base(standard)
 
-    public float rateOfFire = 10f;
+    private float rateOfFire = 0.1f;
     public bool isShooting;
     private bool isShootingCoroutineRunning = false;
     
@@ -57,9 +57,9 @@ public class GunController : MonoBehaviour
             if (ammoAmount < 1)
             {
                 currentGun = 0;
-                ammoDamage = 10;
+                ammoDamage = 2;
                 ammoHealth = 10;
-                ammoSpeed = 5;
+                ammoSpeed = 8;
             }
         }
     }
@@ -78,7 +78,7 @@ public class GunController : MonoBehaviour
         {
             Shoot(player.projectileDirection);
 
-            yield return new WaitForSeconds(1f / rateOfFire); // Calculate delay based on rateOfFire
+            yield return new WaitForSeconds(rateOfFire); // Calculate delay based on rateOfFire
         }
 
         isShootingCoroutineRunning = false; // Reset the flag when the coroutine finishes

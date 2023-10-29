@@ -36,7 +36,7 @@ Transform:
   - {fileID: 1887317789121344299}
   - {fileID: 8748309501817470155}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3201895502661957846
 MonoBehaviour:
@@ -69,7 +69,7 @@ MonoBehaviour:
   projectile: {fileID: 8929337150713892037, guid: a7360784cad10444fb9e270398a61b6a, type: 3}
   projectileSpawnLoc: {fileID: 5272646530609028568}
   projectileDirection: {x: 0, y: 0}
-  moveSpeed: 10
+  moveSpeed: 15
 --- !u!50 &1343999921076460167
 Rigidbody2D:
   serializedVersion: 4
@@ -320,7 +320,6 @@ MonoBehaviour:
   ammoAmount: 0
   ammoHealth: 10
   ammoSpeed: 5
-  rateOfFire: 1
   isShooting: 0
 --- !u!58 &4911176281719204574
 CircleCollider2D:

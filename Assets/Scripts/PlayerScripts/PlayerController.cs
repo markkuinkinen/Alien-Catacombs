@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     private bool isAlive;
 
     [SerializeField]
-    private float moveSpeed = 10f;
-    private float diagonalMoveSpeed = 3 * 0.7f;
+    private float moveSpeed = 15f;
+    private float diagonalMoveSpeed = 15f * 0.7f;
 
     void Start()
     {
