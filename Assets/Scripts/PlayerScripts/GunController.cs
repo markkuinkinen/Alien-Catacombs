@@ -72,13 +72,10 @@ public class GunController : MonoBehaviour
 
     public IEnumerator ShootingProjectiles()
     {
-        // Check if the coroutine is already running
         if (isShootingCoroutineRunning)
         {
-            yield break; // Exit the coroutine if it's already running
+            yield break; 
         }
-
-        //isShootingCoroutineRunning = true; // Set the flag to indicate the coroutine is running
 
         while (isShooting)
         {
@@ -89,13 +86,8 @@ public class GunController : MonoBehaviour
                 Shoot(player.projectileDirection);
                 lastShotTime = Time.time;
             }
-            //Shoot(player.projectileDirection);
-
-            //yield return new WaitForSeconds(rateOfFire); // Calculate delay based on rateOfFire
             yield return null;
         }
-
-        //isShootingCoroutineRunning = false; // Reset the flag when the coroutine finishes
     }
 
     public IEnumerator ShootingCooldown()
@@ -113,7 +105,6 @@ public class GunController : MonoBehaviour
         projectileClone.GetComponent<ProjectileController>().setProjectileSpeed(ammoSpeed);
         projectileClone.GetComponent<ProjectileController>().setProjectileDamage(ammoDamage);
         ammoAmount -= 1;
-        //set health and projectile speed
     }
 
     public void SetGun(int gun)

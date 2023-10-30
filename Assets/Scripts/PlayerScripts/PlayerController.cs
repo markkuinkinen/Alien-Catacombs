@@ -20,8 +20,17 @@ public class PlayerController : MonoBehaviour
     private bool isAlive;
 
     [SerializeField]
-    private float moveSpeed = 15f;
-    private float diagonalMoveSpeed = 15f * 0.7f;
+    private float baseMoveSpeed = 4f;
+    private float diagonalMoveSpeed;
+    public float currentMoveSpeed;
+    public float moveSpeedMultiplier = 1f;
+
+    private float dodgeMultiplier = 1f;
+    private float dodgeDuration = 0.3f;
+    [SerializeField]
+    private bool isDodging;
+
+    private float timer;
 
     void Start()
     {
@@ -29,25 +38,57 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         camera = GetComponent<Camera>();
         isAlive = true;
+        currentMoveSpeed = baseMoveSpeed * moveSpeedMultiplier;
+        diagonalMoveSpeed = (currentMoveSpeed * 0.7f) * moveSpeedMultiplier * dodgeMultiplier;
     }
 
     void Update()
     {
+        //diagonalMoveSpeed = (currentMoveSpeed * 0.7f) * moveSpeedMultiplier * dodgeMultiplier;
+
         if (isAlive && !UIController.isPaused)
         {
             Move();
             TrackMouse();
+            SideStep();
+
+            if (isDodging)
+            {
+                StartCoroutine(isSideStepping());
+            }
+            else
+            {
+                StopCoroutine(isSideStepping());
+            }
         }
         else
         {
             rb.velocity = Vector3.zero;
         }
-
     }
+
+    IEnumerator isSideStepping()
+    {
+        dodgeMultiplier = 2.5f;
+
+        yield return new WaitForSeconds(dodgeDuration);
+
+        isDodging = false;
+        dodgeMultiplier = 1f;
+    }
+
+    void SideStep()
+    {
+        if (Input.GetKey(KeyCode.Space) && !isDodging)
+        {
+            isDodging = true;
+        }
+    }
+
 
     private void TrackMouse()
     {
-        //Debug.Log("tracking mouse");
+
         var camera = Camera.main;
         var mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
 
@@ -57,19 +98,10 @@ public class PlayerController : MonoBehaviour
 
         projectileDirection = ((Vector2)mousePos - (Vector2)transform.position);    //test zone
 
-        /*if (Input.GetMouseButtonDown(0))
-        {
-            GameObject projectileClone = Instantiate(projectile, projectileSpawnLoc.GetComponent<Transform>().position, projectileSpawnLoc.GetComponent<Transform>().rotation);
-            Vector2 direction = ((Vector2)mousePos - (Vector2)transform.position);//.normalized; //hella speedy when not normalised 
-            projectileClone.GetComponent<ProjectileController>().SetDirection(direction);
-        }*/
 
         if (Input.GetMouseButtonDown(0) && gunController.canShoot)
         {
-            //Debug.Log("shooting");
             gunController.isShooting = true;
-            //StartCoroutine(gunController.ShootingCooldown());
-            //gunController.lastShotTime = Time.time;
         }
         else if (Input.GetMouseButtonUp(0)) 
         {
@@ -81,21 +113,21 @@ public class PlayerController : MonoBehaviour
     {
         if ((rb.velocity.x > 0 || rb.velocity.x < 0) && (rb.velocity.y > 0 || rb.velocity.y < 0))   // limits diagonal speed direction and reverts it 
         {
-            moveSpeed = diagonalMoveSpeed;
+            currentMoveSpeed = diagonalMoveSpeed * dodgeMultiplier;
         }
         else
         {
-            moveSpeed = 3f;
+            currentMoveSpeed = baseMoveSpeed * moveSpeedMultiplier * dodgeMultiplier;
         }
 
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))       // gets user key inputs and changes velocity accordingly
         {
-            rb.velocity = new Vector2(rb.velocity.x, moveSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, currentMoveSpeed);
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            rb.velocity = new Vector2(rb.velocity.x, -moveSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, -currentMoveSpeed);
         }
         else
         {
@@ -104,11 +136,11 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(-currentMoveSpeed, rb.velocity.y);
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(currentMoveSpeed, rb.velocity.y);
         }
         else
         {
