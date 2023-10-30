@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,10 +33,13 @@ public class GunController : MonoBehaviour
     
     private int ammoDamage = 5;
     public int ammoHealth = 10;
-    public float ammoSpeed = 12;   // 5 is base(standard)
+    public float ammoSpeed = 15;   // 5 is base(standard)
 
-    private float rateOfFire = 0.1f;
+    [SerializeField]
+    private float rateOfFire = 0.2f;
     public bool isShooting;
+    public bool canShoot;
+    public float lastShotTime;
     private bool isShootingCoroutineRunning = false;
     
     void Start()
@@ -43,6 +47,7 @@ public class GunController : MonoBehaviour
         ammoType = new GameObject[] { normalAmmo, rocketAmmo, laserAmmo};
         currentGun = 0;
         player = FindObjectOfType<PlayerController>();
+        canShoot = true;
     }
 
     public int getAmmoDamage()
@@ -59,7 +64,8 @@ public class GunController : MonoBehaviour
                 currentGun = 0;
                 ammoDamage = 2;
                 ammoHealth = 10;
-                ammoSpeed = 8;
+                ammoSpeed = 15;
+                rateOfFire = 0.2f;
             }
         }
     }
@@ -72,16 +78,31 @@ public class GunController : MonoBehaviour
             yield break; // Exit the coroutine if it's already running
         }
 
-        isShootingCoroutineRunning = true; // Set the flag to indicate the coroutine is running
+        //isShootingCoroutineRunning = true; // Set the flag to indicate the coroutine is running
 
         while (isShooting)
         {
-            Shoot(player.projectileDirection);
+            float elapsedTime = Time.time - lastShotTime;
 
-            yield return new WaitForSeconds(rateOfFire); // Calculate delay based on rateOfFire
+            if (elapsedTime >= rateOfFire)
+            {
+                Shoot(player.projectileDirection);
+                lastShotTime = Time.time;
+            }
+            //Shoot(player.projectileDirection);
+
+            //yield return new WaitForSeconds(rateOfFire); // Calculate delay based on rateOfFire
+            yield return null;
         }
 
-        isShootingCoroutineRunning = false; // Reset the flag when the coroutine finishes
+        //isShootingCoroutineRunning = false; // Reset the flag when the coroutine finishes
+    }
+
+    public IEnumerator ShootingCooldown()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(rateOfFire - 0.1f);
+        canShoot = true;
     }
 
     public void Shoot(Vector2 direction)
@@ -108,28 +129,43 @@ public class GunController : MonoBehaviour
         ammoDamage = 20;
         ammoSpeed = 1;
         ammoHealth = 10;
+        rateOfFire = 0.9f;
     }
     public void equipLaser()
     {
         Debug.Log("laser gun grabbed");
         currentGun = 2;
-        ammoAmount = 10;
+        ammoAmount = 50;
         ammoDamage = 50;
         ammoSpeed = 10;
         ammoHealth = 2000;
-        //
+        rateOfFire = 0.7f;
     }
 
     private void OnTriggerEnter2D(Collider2D ammoType)
     {
         if (ammoType.tag == "RocketAmmo")
         {
-            equipRocket();
+            if (currentGun == 0 || currentGun == 2)
+            {
+                equipRocket();
+            }
+            else
+            {
+                ammoAmount += 100;
+            }
             Destroy(ammoType.gameObject);
         }
         if (ammoType.tag == "LaserAmmo")
         {
-            equipLaser();
+            if (currentGun == 0 || currentGun == 1)
+            {
+                equipLaser();
+            }
+            else
+            {
+                ammoAmount += 100;
+            }
             Destroy(ammoType.gameObject);
         }
 

@@ -48,7 +48,7 @@ public class SoldierScript : MonoBehaviour
         if (other.tag == "Projectile")
         {
             Health -= other.GetComponent<ProjectileController>().GetProjectileDamage();
-            Debug.Log("hit");
+            Debug.Log("hit the soldier");
 
             if (Health <= 0)
             {

@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
     Camera camera;
     public GameObject projectile;
     public GameObject projectileSpawnLoc;
-
     public Vector2 projectileDirection;
     
     //public GameObject gun;
@@ -65,11 +64,12 @@ public class PlayerController : MonoBehaviour
             projectileClone.GetComponent<ProjectileController>().SetDirection(direction);
         }*/
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && gunController.canShoot)
         {
-            //Vector2 direction = ((Vector2)mousePos - (Vector2)transform.position);//.normalized; //hella speedy when not normalised 
+            //Debug.Log("shooting");
             gunController.isShooting = true;
-            //gunController.Shoot(direction);
+            //StartCoroutine(gunController.ShootingCooldown());
+            //gunController.lastShotTime = Time.time;
         }
         else if (Input.GetMouseButtonUp(0)) 
         {

@@ -15,8 +15,12 @@ public class EvolvedEggScript : MonoBehaviour
     private float timer;
 
     private Vector3 directionToMove;
-
     private Vector3 directionOfPlayer;
+
+    public Transform movementTransform;
+    public Transform centreOfEnemy;
+
+    float angleToLook;
 
     void Start()
     {
@@ -24,6 +28,8 @@ public class EvolvedEggScript : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
 
         directionToMove = getDirection();//directionOfPlayer;
+
+        rotate();
     }
 
 
@@ -34,14 +40,14 @@ public class EvolvedEggScript : MonoBehaviour
         timer += Time.deltaTime;
         if (timer < 4f)
         {
-            transform.Translate(directionToMove * movespeed * Time.deltaTime);
+            movementTransform.Translate(directionToMove * movespeed * Time.deltaTime);
         }
         else
         {
             directionToMove = (player.GetComponent<Transform>().position - transform.position).normalized;
-
+            rotate();
             //float angle = Mathf.Atan2(directionToMove.y, directionToMove.x) * Mathf.Rad2Deg;
-            //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+            //centreOfEnemy.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
 
             timer = 0f;
         }
@@ -56,8 +62,8 @@ public class EvolvedEggScript : MonoBehaviour
 
     void rotate()
     {
-        float angle = Mathf.Atan2(player.GetComponent<Transform>().position.x, player.GetComponent<Transform>().position.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+        angleToLook = Mathf.Atan2(directionToMove.y, directionToMove.x) * Mathf.Rad2Deg;
+        centreOfEnemy.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Atan2(directionToMove.y, directionToMove.x) * Mathf.Rad2Deg - 90f));
     }
 
     void FollowPlayer()
@@ -74,6 +80,7 @@ public class EvolvedEggScript : MonoBehaviour
         if (collision.tag == "Projectile")
         {
             Health -= collision.GetComponent<ProjectileController>().GetProjectileDamage();
+            Debug.Log("hit the spider");
 
             if (Health <= 0)
             {

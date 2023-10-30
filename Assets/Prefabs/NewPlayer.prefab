@@ -320,7 +320,10 @@ MonoBehaviour:
   ammoAmount: 0
   ammoHealth: 10
   ammoSpeed: 5
+  rateOfFire: 0.1
   isShooting: 0
+  canShoot: 0
+  lastShotTime: 0
 --- !u!58 &4911176281719204574
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -261,8 +261,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6655473962138640500}
-  - component: {fileID: 5342598473212525018}
-  - component: {fileID: 1647589325603833201}
   m_Layer: 0
   m_Name: Level4Alien
   m_TagString: Enemy
@@ -284,57 +282,8 @@ Transform:
   m_Children:
   - {fileID: 3705562323650804695}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &5342598473212525018
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2607908136272845099}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.00000023841858, y: 0.021905184}
-  m_Size: {x: 1.7266879, y: 2.734324}
-  m_Direction: 0
---- !u!114 &1647589325603833201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2607908136272845099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb4e8ae3bbaef664cbcfebe9946fc289, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EvolvedEggCurrency: {fileID: 8810750084422071135, guid: 5c17c8f3661f84947892d28a0fcecf6e, type: 3}
-  timer: 0
 --- !u!1 &3600986458231277799
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,9 +293,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3705562323650804695}
+  - component: {fileID: 6485556091271334560}
+  - component: {fileID: 2500104395281587524}
   m_Layer: 0
   m_Name: CentreOfEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -373,6 +324,57 @@ Transform:
   m_Father: {fileID: 6655473962138640500}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &6485556091271334560
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3600986458231277799}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.061570525, y: 0.01539278}
+  m_Size: {x: 1.6082675, y: 2.6316166}
+  m_Direction: 0
+--- !u!114 &2500104395281587524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3600986458231277799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb4e8ae3bbaef664cbcfebe9946fc289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EvolvedEggCurrency: {fileID: 8810750084422071135, guid: 5c17c8f3661f84947892d28a0fcecf6e, type: 3}
+  timer: 0
+  movementTransform: {fileID: 6655473962138640500}
+  centreOfEnemy: {fileID: 3705562323650804695}
 --- !u!1 &4792124367729785590
 GameObject:
   m_ObjectHideFlags: 0

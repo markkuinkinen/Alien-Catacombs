@@ -81,7 +81,7 @@ public class ProjectileController : MonoBehaviour
         {
             projectileHealth -= 10;
 
-            if (projectileHealth == 0)
+            if (projectileHealth <= 0)
             {
                 Destroy(this.gameObject);
             }
