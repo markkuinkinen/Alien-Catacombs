@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     GameController gameController;
 
     public GameObject PauseMenu;
+    public GameObject deathMenu;
     public Button ResumeButton;
     public Button exitButton;
     public Button QuitButton;
@@ -18,6 +19,7 @@ public class UIController : MonoBehaviour
     public Text scoreText;
     public Text playerLevelText;
     public Text currencyAmountText;
+    public Text deathText;
 
     public GameObject LevelMenu;
 
@@ -36,6 +38,12 @@ public class UIController : MonoBehaviour
         PauseGame();
         trackCurrency();
         TrackHealth();
+        trackDeathText();
+    }
+
+    void trackDeathText()
+    {
+        deathText.text = "You salvaged " + gameController.currencyAmount + " crystals\n" + gameController.getTotalCrystals() + " in total";
     }
 
     void TrackHealth()
@@ -73,6 +81,11 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void ActivateDeathMenu()
+    {
+        deathMenu.SetActive(true);
+    }
+
     void trackCurrency()
     {
         currencyAmountText.text = gameController.currencyAmount.ToString();
@@ -96,6 +109,11 @@ public class UIController : MonoBehaviour
     {
         PauseMenu.SetActive(false);
         isPaused = false;
+    }
+
+    public void EnterStore()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void RestartGame()

@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     
     //public GameObject gun;
 
-    private bool isAlive;
+    public bool isAlive;
 
     [SerializeField]
     private float baseMoveSpeed = 4f;
@@ -52,7 +52,10 @@ public class PlayerController : MonoBehaviour
         {
             Move();
             TrackMouse();
-            SideStep();
+            if (gameController.returnHasDash())
+            {
+                SideStep();
+            }
 
             if (isDodging)
             {
@@ -119,17 +122,17 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            currentMoveSpeed = baseMoveSpeed * moveSpeedMultiplier * dodgeMultiplier;
+            currentMoveSpeed = baseMoveSpeed * gameController.returnMovespeedMultiplier() * dodgeMultiplier;
         }
 
 
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))       // gets user key inputs and changes velocity accordingly
         {
-            rb.velocity = new Vector2(rb.velocity.x, currentMoveSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, currentMoveSpeed * gameController.returnMovespeedMultiplier());
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            rb.velocity = new Vector2(rb.velocity.x, -currentMoveSpeed);
+            rb.velocity = new Vector2(rb.velocity.x, -currentMoveSpeed * gameController.returnMovespeedMultiplier());
         }
         else
         {
@@ -138,15 +141,15 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            rb.velocity = new Vector2(-currentMoveSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(-currentMoveSpeed * gameController.returnMovespeedMultiplier(), rb.velocity.y);
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            rb.velocity = new Vector2(currentMoveSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(currentMoveSpeed * gameController.returnMovespeedMultiplier(), rb.velocity.y);
         }
         else
         {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(0, rb.velocity.y * gameController.returnMovespeedMultiplier());
         }
     }
 

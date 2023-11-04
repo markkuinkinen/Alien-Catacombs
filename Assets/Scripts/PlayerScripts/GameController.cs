@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,8 +12,8 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private int score;
     
-    public int maxPlayerHealth = 100; // + upgrade controller
-    public int currentHp;
+    public float maxPlayerHealth; // + upgrade controller
+    public float currentHp;
 
     public int playerLevel = 0;
     [SerializeField]
@@ -21,30 +22,39 @@ public class GameController : MonoBehaviour
     private float currentExp = 0;
     public float totalExp;
     public Slider expSlider;
-    public int currencyAmount;
+    public float currencyAmount;
 
     public bool inPlayScene;
 
     //upgrades
     static float damageMultiplier = 1f;
+    static float expMultiplier = 1f;
+    static float movespeedMultiplier = 1f;
+    static float healthMultiplier = 1f;
+    static float crystalMultiplier = 1f;
+    static bool hasDash = false;
+
+    static float totalPlayerCrystals;
 
     void Start()
     {
         upgradeController = FindObjectOfType<UpgradeController>();
         UIController = FindObjectOfType<UIController>();
         player = FindObjectOfType<PlayerController>();
+        maxPlayerHealth = 100 * healthMultiplier;
         currentHp = maxPlayerHealth;
     }
 
-    public void addDamageMultiplier()
+    void Update()
     {
-        damageMultiplier += 1f;
+        if (inPlayScene)
+        {
+            trackExp();
+            LevelUp();
+            TrackDeath();
+        }
     }
 
-    public float returnDamageMultiplier()
-    {
-        return damageMultiplier;
-    }
 
     void trackExp()
     {
@@ -52,9 +62,10 @@ public class GameController : MonoBehaviour
         expSlider.value = currentExp;
     }
 
-    public void addCurrency(int amount)
+    public void addCurrency(float amount)
     {
-        currencyAmount += amount;
+        currencyAmount += amount * crystalMultiplier;
+        totalPlayerCrystals += amount * crystalMultiplier;
     }
 
     void LevelUp()
@@ -79,7 +90,9 @@ public class GameController : MonoBehaviour
     {
         if (currentHp <= 0)
         {
-            Debug.Log("youre dead");
+            player.isAlive = false;
+            UIController.ActivateDeathMenu();
+            Debug.Log("youre dead");   
         }
     }
 
@@ -96,22 +109,83 @@ public class GameController : MonoBehaviour
 
     public void giveExp(float expAmount)
     {
-        currentExp += expAmount;
-        totalExp += expAmount;
+        currentExp += expAmount * expMultiplier;
+        totalExp += expAmount * expMultiplier;
     }
 
-    /*public int returnLevel()
+    public void removeCrystalAmount(int amount)
     {
-        return playerLevel;
-    }*/
-    
-    void Update()
-    {
-        if (inPlayScene)
-        {
-            trackExp();
-            LevelUp();
-            TrackDeath();
-        }
+        totalPlayerCrystals -= amount;
     }
+
+    public float getTotalCrystals()
+    {
+        return totalPlayerCrystals;
+    }
+
+
+    #region MultiplierGetters&Setters
+
+    public void addDamageMultiplier()
+    {
+        damageMultiplier += 0.1f;
+    }
+
+    public float returnDamageMultiplier()
+    {
+        return damageMultiplier;
+    }
+
+    public void addExpMultiplier()
+    {
+        expMultiplier += 0.1f;
+    }
+
+    public float returnExpMultiplier()
+    {
+        return expMultiplier;
+    }
+
+    public void addMovespeedMultiplier()
+    {
+        movespeedMultiplier += 0.05f;
+    }
+
+    public float returnMovespeedMultiplier()
+    {
+        return movespeedMultiplier;
+    }
+
+    public void addHealthMultiplier()
+    {
+        healthMultiplier += 0.1f;
+    }
+
+    public float returnHealthMultiplier()
+    {
+        return healthMultiplier;
+    }
+
+    public void addCrystalMultiplier()
+    {
+        crystalMultiplier += 0.2f;
+    }
+
+    public float returnCrystalMultiplier()
+    {
+        return crystalMultiplier;
+    }
+
+    public void addDash()
+    {
+        hasDash = true;
+    }
+
+    public bool returnHasDash()
+    {
+        return hasDash;
+    }
+
+    #endregion
+
 }

@@ -36,11 +36,11 @@ public class SpawnController : MonoBehaviour
 
     private void Update()
     {
-        if (UIController.isPaused)
+        if (UIController.isPaused || !player.isAlive)
         {
             StopAllCoroutines();
         }
-        else if (!UIController.isPaused)
+        else if (!UIController.isPaused && player.isAlive)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {

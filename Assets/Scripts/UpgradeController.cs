@@ -15,7 +15,7 @@ public class UpgradeController : MonoBehaviour
     float speedMultiplier;
     float healthMultiplier;
     float crystalMultiplier;
-    bool dashBought;
+    
 
     //Text of price
     public Text damageCostText;
@@ -25,6 +25,13 @@ public class UpgradeController : MonoBehaviour
     public Text crystalCostText;
     public Text dashCostText;
 
+    static int damageCost = 50;
+    static int expCost = 50;
+    static int speedCost = 50;
+    static int healthCost = 50;
+    static int crystalCost = 50;
+    static int dashCost = 50;
+
     //Upgrade amounts
     public Text damageAmountText;
     public Text expAmountText;
@@ -32,6 +39,13 @@ public class UpgradeController : MonoBehaviour
     public Text healthAmountText;
     public Text crystalAmountText;
     public Text dashAmountText;
+
+    static int damageAmountBought = 0;      // x/3
+    static int expAmountBought = 0;         // x/3
+    static int speedAmountBought = 0;       // x/3
+    static int healthAmountBought = 0;      // x/2
+    static int crystalAmountBought = 0;     // x/2
+    static int dashAmountBought = 0;
 
     public Text playerCrystalAmount;
 
@@ -41,41 +55,129 @@ public class UpgradeController : MonoBehaviour
         gunController = FindObjectOfType<GunController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        UpdateStoreText();
     }
+
+    void UpdateStoreText()
+    {
+        // For the left side of the store -> X/X
+        damageAmountText.text = damageAmountBought + "/3";
+        expAmountText.text = expAmountBought + "/3";
+        speedAmountText.text = speedAmountBought + "/3";
+        healthAmountText.text = healthAmountBought + "/2";
+        crystalAmountText.text = crystalAmountBought + "/2";
+        dashAmountText.text = dashAmountBought + "/1";
+
+        // To update the cost
+        damageCostText.text = damageCost.ToString();
+        expCostText.text = expCost.ToString();
+        speedCostText.text = speedCost.ToString();
+        healthCostText.text = healthCost.ToString();
+        crystalCostText.text = crystalCost.ToString();
+        dashCostText.text = dashCost.ToString();
+
+        playerCrystalAmount.text = gameController.getTotalCrystals().ToString();
+    }
+
+    #region ButtonsForMenu
 
     // Store buttons for buying
     public void BuyDamage()
     {
-        gameController.addDamageMultiplier();
+        int maxAmount = 3;
+        if (damageAmountBought < maxAmount && gameController.getTotalCrystals() >= damageCost)
+        {
+            gameController.addDamageMultiplier();
+            gameController.removeCrystalAmount(damageCost);
+            damageAmountBought++;
+            Debug.Log("damagebought");
+        }
+        else
+        {
+            Debug.Log("not enough");
+        }
     }
 
     public void BuyEXP()
     {
-
+        int maxAmount = 3;
+        if (expAmountBought < maxAmount && gameController.getTotalCrystals() >= damageCost)
+        {
+            gameController.removeCrystalAmount(damageCost);
+            expAmountBought++;
+            gameController.addExpMultiplier();
+            Debug.Log("exp bought");
+        }
+        else
+        {
+            Debug.Log("not enough");
+        }
     }
 
     public void BuyMS()
     {
-
+        int maxAmount = 3;
+        if (speedAmountBought < maxAmount && gameController.getTotalCrystals() >= speedCost)
+        {
+            gameController.removeCrystalAmount(speedCost);
+            gameController.addMovespeedMultiplier();
+            speedAmountBought++;
+            Debug.Log("speed bought");
+        }
+        else
+        {
+            Debug.Log("not enough");
+        }
     }
 
     public void BuyHealth()
     {
-
+        int maxAmount = 2;
+        if (healthAmountBought < maxAmount && gameController.getTotalCrystals() >= healthCost)
+        {
+            gameController.removeCrystalAmount(healthCost);
+            gameController.addHealthMultiplier();
+            healthAmountBought++;
+            Debug.Log("health bought");
+        }
+        else
+        {
+            Debug.Log("not enough");
+        }
     }
 
     public void BuyDropRate()
     {
-
+        int maxAmount = 2;
+        if (crystalAmountBought < maxAmount && gameController.getTotalCrystals() >= crystalCost)
+        {
+            gameController.removeCrystalAmount(crystalCost);
+            gameController.addCrystalMultiplier();
+            crystalAmountBought++;
+            Debug.Log("crystal bought");
+        }
+        else
+        {
+            Debug.Log("not enough");
+        }
     }
 
     public void BuyDash()
     {
-
+        int maxAmount = 1;
+        if (dashAmountBought < maxAmount && gameController.getTotalCrystals() >= dashCost)
+        {
+            gameController.removeCrystalAmount(dashCost);
+            gameController.addDash();
+            dashAmountBought++;
+            Debug.Log("dash bought");
+        }
+        else
+        {
+            Debug.Log("not enough");
+        }
     }
 
     // Store buttons for returning to menu and playing from store
@@ -89,5 +191,7 @@ public class UpgradeController : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    #endregion
 
 }
