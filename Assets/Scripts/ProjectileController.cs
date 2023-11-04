@@ -16,8 +16,9 @@ public class ProjectileController : MonoBehaviour
     private int projectileHealth;   //if bullets go through enemies
     
     //rifle: 10, laser: 20, rocket: 20
-    private int projectileDamage = 10;
+    private float projectileDamage = 10;
 
+    //public float projectileDamageMultiplier = 1;
 
     void Start()
     {
@@ -26,7 +27,7 @@ public class ProjectileController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public int GetProjectileDamage()
+    public float GetProjectileDamage()
     {
         return projectileDamage;
     }
@@ -41,7 +42,7 @@ public class ProjectileController : MonoBehaviour
         projectileSpeed = Speed;
     }
 
-    public void setProjectileDamage(int Damage)
+    public void setProjectileDamage(float Damage)
     {
         projectileDamage = Damage;
     }

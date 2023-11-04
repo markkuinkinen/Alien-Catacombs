@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 public class PlayerController : MonoBehaviour
 {
     UIController UIController;
+    GameController gameController;
     public Transform centreTransform;   // to control the rotation for the player sprite
     public GunController gunController;
     Rigidbody2D rb;
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        gameController = FindObjectOfType<GameController>();
         UIController = FindObjectOfType<UIController>();
         rb = GetComponent<Rigidbody2D>();
         camera = GetComponent<Camera>();
@@ -145,6 +147,14 @@ public class PlayerController : MonoBehaviour
         else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            gameController.currentHp -= 20;
         }
     }
 }

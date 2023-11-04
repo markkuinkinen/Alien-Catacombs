@@ -22,10 +22,12 @@ public class UIController : MonoBehaviour
     public GameObject LevelMenu;
 
     public bool isPaused;
+    public Slider playerHealthSlider;
 
     void Start()
     {
         gameController = FindObjectOfType<GameController>();
+        playerHealthSlider.maxValue = gameController.maxPlayerHealth;
     }
 
     void Update()
@@ -33,6 +35,12 @@ public class UIController : MonoBehaviour
         trackLevelandScore();
         PauseGame();
         trackCurrency();
+        TrackHealth();
+    }
+
+    void TrackHealth()
+    {
+        playerHealthSlider.value = gameController.currentHp;
     }
 
     void trackLevelandScore()
@@ -90,9 +98,14 @@ public class UIController : MonoBehaviour
         isPaused = false;
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     public void ExitGame()
     {
-        //SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()

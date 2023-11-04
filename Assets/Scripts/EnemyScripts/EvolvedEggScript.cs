@@ -6,10 +6,11 @@ public class EvolvedEggScript : MonoBehaviour
 {
     public GameObject EvolvedEggCurrency;
     GameController gameController;
+    UIController uiController;
     PlayerController player;
     private float movespeed = 6.5f;
 
-    private int Health = 60;
+    private float Health = 60;
 
     [SerializeField]
     private float timer;
@@ -26,7 +27,7 @@ public class EvolvedEggScript : MonoBehaviour
     {
         player = FindObjectOfType<PlayerController>();
         gameController = FindObjectOfType<GameController>();
-
+        uiController = FindObjectOfType<UIController>();
         directionToMove = getDirection();//directionOfPlayer;
 
         rotate();
@@ -35,21 +36,24 @@ public class EvolvedEggScript : MonoBehaviour
 
     void Update()
     {
-        directionOfPlayer = (player.GetComponent<Transform>().position - this.transform.position).normalized;
-
-        timer += Time.deltaTime;
-        if (timer < 4f)
+        if (!uiController.isPaused)
         {
-            movementTransform.Translate(directionToMove * movespeed * Time.deltaTime);
-        }
-        else
-        {
-            directionToMove = (player.GetComponent<Transform>().position - transform.position).normalized;
-            rotate();
-            //float angle = Mathf.Atan2(directionToMove.y, directionToMove.x) * Mathf.Rad2Deg;
-            //centreOfEnemy.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+            directionOfPlayer = (player.GetComponent<Transform>().position - this.transform.position).normalized;
 
-            timer = 0f;
+            timer += Time.deltaTime;
+            if (timer < 4f)
+            {
+                movementTransform.Translate(directionToMove * movespeed * Time.deltaTime);
+            }
+            else
+            {
+                directionToMove = (player.GetComponent<Transform>().position - transform.position).normalized;
+                rotate();
+                //float angle = Mathf.Atan2(directionToMove.y, directionToMove.x) * Mathf.Rad2Deg;
+                //centreOfEnemy.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+
+                timer = 0f;
+            }
         }
     }
 

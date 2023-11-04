@@ -13,7 +13,7 @@ public class SoldierScript : MonoBehaviour
 
     private float movespeed = 1f;
     [SerializeField]
-    private int Health = 40;
+    private float Health = 40;
 
     void Start()
     {

@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    UpgradeController upgradeController;
     UIController UIController;
     PlayerController player;
     [SerializeField]
     private int score;
-    private int playerHealth = 3;
-    private int currentHp = 0;
+    
+    public int maxPlayerHealth = 100; // + upgrade controller
+    public int currentHp;
 
     public int playerLevel = 0;
     [SerializeField]
@@ -21,10 +23,27 @@ public class GameController : MonoBehaviour
     public Slider expSlider;
     public int currencyAmount;
 
+    public bool inPlayScene;
+
+    //upgrades
+    static float damageMultiplier = 1f;
+
     void Start()
     {
+        upgradeController = FindObjectOfType<UpgradeController>();
         UIController = FindObjectOfType<UIController>();
         player = FindObjectOfType<PlayerController>();
+        currentHp = maxPlayerHealth;
+    }
+
+    public void addDamageMultiplier()
+    {
+        damageMultiplier += 1f;
+    }
+
+    public float returnDamageMultiplier()
+    {
+        return damageMultiplier;
     }
 
     void trackExp()
@@ -56,6 +75,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    void TrackDeath()
+    {
+        if (currentHp <= 0)
+        {
+            Debug.Log("youre dead");
+        }
+    }
+
     public void perkContinue()
     {
         playerLevel += 1;
@@ -66,10 +93,6 @@ public class GameController : MonoBehaviour
         UIController.isPaused = false;
     }
 
-    void increaseMovespeed()
-    {
-        //PlayerController.increaseMoveSpeed();
-    }
 
     public void giveExp(float expAmount)
     {
@@ -84,7 +107,11 @@ public class GameController : MonoBehaviour
     
     void Update()
     {
-        trackExp();
-        LevelUp();
+        if (inPlayScene)
+        {
+            trackExp();
+            LevelUp();
+            TrackDeath();
+        }
     }
 }

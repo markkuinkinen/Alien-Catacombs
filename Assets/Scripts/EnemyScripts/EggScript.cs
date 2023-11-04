@@ -9,7 +9,7 @@ public class EggScript : MonoBehaviour
     public GameObject eggEvolvedSpawn;
     GameController gameController;
 
-    private int Health = 40;
+    private float Health = 40;
 
     float timer = 0f;
 
