@@ -25,6 +25,7 @@ public class UpgradeController : MonoBehaviour
     public Text crystalCostText;
     public Text dashCostText;
 
+    // Upgrade costs, changed after buying
     static int damageCost = 50;
     static int expCost = 50;
     static int speedCost = 50;
