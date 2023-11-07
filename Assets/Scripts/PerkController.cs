@@ -6,6 +6,7 @@ public class PerkController : MonoBehaviour
 {
     PlayerController playerController;
     UIController uiController;
+    public Transform parentTransform;
     // 3 locations
     public Transform[] perkLocations;
 
@@ -17,7 +18,7 @@ public class PerkController : MonoBehaviour
 
     void Start()
     {
-        UIController uiController = FindObjectOfType<UIController>();
+        uiController = FindObjectOfType<UIController>();
         playerController = FindObjectOfType<PlayerController>();
         //List<GameObject> perksList = new List<GameObject> { perks[0], perks[1], perks[2], perks[3], perks[4], perks[5] };
         perksList.AddRange(perks);
@@ -32,24 +33,22 @@ public class PerkController : MonoBehaviour
 
     void displayPerks()
     {
-        int index = 5;
 
-        int firstPerk = 0;// Random.Range(0, index);
-        Instantiate(perksList[1], perkLocations[1]);
-        perksList.Remove(perksList[firstPerk]);
-        index -= 1;
+        int firstPerk = 0;
 
-        //int secondPerk = 1;// Random.Range(0, index);
-        //Instantiate(perksList[secondPerk], perkLocations[1]);
-        //perksList.Remove(perksList[secondPerk]);
-        //index -= 1;
+        perksList[firstPerk].SetActive(true);
+        perksList[firstPerk].GetComponent<Transform>().position = perkLocations[0].position;
 
-        //int thirdPerk = 2;//Random.Range(0, index);
-        //Instantiate(perksList[thirdPerk], perkLocations[2]);
-        //perksList.Remove(perksList[thirdPerk]);
+        int secondPerk = 1;
 
-        //perksList.RemoveAll(perksList.Contains);
-        //resetPerks();
+        perksList[secondPerk].SetActive(true);
+        perksList[secondPerk].GetComponent<Transform>().position = perkLocations[1].position;
+
+        int thirdPerk = 2;
+
+        perksList[thirdPerk].SetActive(true);
+        perksList[thirdPerk].GetComponent<Transform>().position = perkLocations[2].position;
+
     }
 
     void resetPerks()

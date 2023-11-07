@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GunController : MonoBehaviour
 {
+    UIController UIController;
     // UI
     public GameObject standardGunPicture;
     public GameObject laserGunPicture;
@@ -47,6 +48,7 @@ public class GunController : MonoBehaviour
     
     void Start()
     {
+        UIController = FindObjectOfType<UIController>();
         gameController = FindObjectOfType<GameController>();
         ammoType = new GameObject[] { normalAmmo, rocketAmmo, laserAmmo};
         currentGun = 0;
@@ -246,6 +248,7 @@ public class GunController : MonoBehaviour
 
         // To apply the multiplier from the store 
         currentAmmoDamage = baseAmmoDamage * gameController.returnDamageMultiplier();
+
 
         if (isShooting)
         {
