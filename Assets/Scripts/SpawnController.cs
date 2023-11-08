@@ -51,6 +51,12 @@ public class SpawnController : MonoBehaviour
 
     }
 
+    public void restartSpawning()
+    {
+        StartCoroutine(spawnEnemies(spawnInterval, enemyPrefab));
+        StartCoroutine(spawnEnemies(spawnInterval, enemyPrefab));
+    }
+
     private IEnumerator spawnEnemies(float interval, GameObject enemy)
     {
         yield return new WaitForSeconds(interval);

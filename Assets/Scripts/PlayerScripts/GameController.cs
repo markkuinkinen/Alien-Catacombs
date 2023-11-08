@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     UpgradeController upgradeController;
+    GunController gunController;
+    PerkController perkController;
     UIController UIController;
     PlayerController player;
     [SerializeField]
@@ -15,9 +17,9 @@ public class GameController : MonoBehaviour
     public float maxPlayerHealth; // + upgrade controller
     public float currentHp;
 
-    public int playerLevel = 0;
+    public int playerLevel = 1;
     [SerializeField]
-    private float pointsToLevel = 5000;
+    private float pointsToLevel = 1000;
     [SerializeField]
     private float currentExp = 0;
     public float totalExp;
@@ -26,7 +28,7 @@ public class GameController : MonoBehaviour
 
     public bool inPlayScene;
 
-    //upgrades
+    // Store upgrade multipliers
     static float damageMultiplier = 1f;
     static float expMultiplier = 1f;
     static float movespeedMultiplier = 1f;
@@ -34,10 +36,21 @@ public class GameController : MonoBehaviour
     static float crystalMultiplier = 1f;
     static bool hasDash = false;
 
+    // Perk upgrade multipliers
+    public float damagePerkMultiplier = 0f;
+    public float expPerkMultiplier = 0f;
+    public float movespeedPerkMultiplier = 0f;
+    public float healthPerkMultiplier = 0f;
+    public float crystalPerkMultiplier = 0f;
+
     static float totalPlayerCrystals;
+
+    public GameObject perkMenu;
 
     void Start()
     {
+        gunController = FindObjectOfType<GunController>();
+        perkController = FindObjectOfType<PerkController>();
         upgradeController = FindObjectOfType<UpgradeController>();
         UIController = FindObjectOfType<UIController>();
         player = FindObjectOfType<PlayerController>();
@@ -55,6 +68,10 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void RestoreHealth()
+    {
+        currentHp = maxPlayerHealth;
+    }
 
     void trackExp()
     {
@@ -64,8 +81,8 @@ public class GameController : MonoBehaviour
 
     public void addCurrency(float amount)
     {
-        currencyAmount += amount * crystalMultiplier;
-        totalPlayerCrystals += amount * crystalMultiplier;
+        currencyAmount += amount * (crystalMultiplier + crystalPerkMultiplier);
+        totalPlayerCrystals += amount * (crystalMultiplier + crystalPerkMultiplier);
     }
 
     void LevelUp()
@@ -73,16 +90,13 @@ public class GameController : MonoBehaviour
         if (expSlider.value >= expSlider.maxValue)
         {
             UIController.isPaused = true;
-            UIController.LevelMenu.SetActive(true);
-            //playerLevel += 1;
-            /*if (Input.GetKeyDown(KeyCode.Space))
-            {
-                playerLevel += 1;
-                Debug.Log("leveled up and yeah");
-                currentExp = 0;
-                pointsToLevel += (pointsToLevel * 0.15f);
-                UIController.isPaused = false;
-            }*/
+
+            perkMenu.SetActive(true);
+            perkController.displayPerks();
+            score += (int)currentExp;
+            currentExp = 0;
+            playerLevel += 1;
+            pointsToLevel += (pointsToLevel * 0.15f);
         }
     }
 
@@ -92,18 +106,17 @@ public class GameController : MonoBehaviour
         {
             player.isAlive = false;
             UIController.ActivateDeathMenu();
+            gunController.isShooting = false;
             Debug.Log("youre dead");   
         }
     }
 
     public void perkContinue()
     {
-        playerLevel += 1;
-        Debug.Log("leveled up and yeah");
-        currentExp = 0;
-        pointsToLevel += (pointsToLevel * 0.15f);
-        UIController.LevelMenu.SetActive(false);
+        pointsToLevel += (pointsToLevel * 0.5f);
         UIController.isPaused = false;
+        gunController.isShooting = false;
+        perkMenu.SetActive(false);
     }
 
 
@@ -153,7 +166,7 @@ public class GameController : MonoBehaviour
 
     public float returnMovespeedMultiplier()
     {
-        return movespeedMultiplier;
+        return movespeedMultiplier + movespeedPerkMultiplier;
     }
 
     public void addHealthMultiplier()

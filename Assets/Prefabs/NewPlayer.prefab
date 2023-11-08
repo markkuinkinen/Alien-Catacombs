@@ -73,6 +73,7 @@ MonoBehaviour:
   baseMoveSpeed: 10
   currentMoveSpeed: 0
   moveSpeedMultiplier: 1
+  dodgeDuration: 0.3
   isDodging: 0
 --- !u!50 &1343999921076460167
 Rigidbody2D:
@@ -322,9 +323,11 @@ MonoBehaviour:
   rocketAmmo: {fileID: 4797408475645070247, guid: b6c1a84b48ee89b44a0a0ff6a40ac3ff, type: 3}
   laserAmmo: {fileID: 8766368667120193651, guid: 1abbbf5647af28846a4f83e2a02ff7c6, type: 3}
   ammoAmount: 0
+  damageMultiplier: 1
   ammoHealth: 10
   ammoSpeed: 5
   rateOfFire: 0.1
+  rateOfFireMultiplier: 0
   isShooting: 0
   canShoot: 0
   lastShotTime: 0

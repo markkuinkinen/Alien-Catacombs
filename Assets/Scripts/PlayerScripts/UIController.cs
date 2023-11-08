@@ -8,6 +8,7 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     GameController gameController;
+    GunController gunController;
 
     public GameObject PauseMenu;
     public GameObject deathMenu;
@@ -21,13 +22,12 @@ public class UIController : MonoBehaviour
     public Text currencyAmountText;
     public Text deathText;
 
-    public GameObject LevelMenu;
-
     public bool isPaused;
     public Slider playerHealthSlider;
 
     void Start()
     {
+        gunController = FindObjectOfType<GunController>();
         gameController = FindObjectOfType<GameController>();
         playerHealthSlider.maxValue = gameController.maxPlayerHealth;
     }
@@ -97,6 +97,7 @@ public class UIController : MonoBehaviour
         {
             PauseMenu.SetActive(true);
             isPaused = true;
+            gunController.isShooting = false;
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && isPaused)
         {

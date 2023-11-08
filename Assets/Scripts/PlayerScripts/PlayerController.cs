@@ -21,13 +21,12 @@ public class PlayerController : MonoBehaviour
     public bool isAlive;
 
     [SerializeField]
-    private float baseMoveSpeed = 4f;
-    private float diagonalMoveSpeed;
+    private float baseMoveSpeed = 3f;
     public float currentMoveSpeed;
     public float moveSpeedMultiplier = 1f;
 
     private float dodgeMultiplier = 1f;
-    private float dodgeDuration = 0.3f;
+    public float dodgeDuration = 0.3f;
     [SerializeField]
     private bool isDodging;
 
@@ -41,7 +40,7 @@ public class PlayerController : MonoBehaviour
         camera = GetComponent<Camera>();
         isAlive = true;
         currentMoveSpeed = baseMoveSpeed * moveSpeedMultiplier;
-        diagonalMoveSpeed = (currentMoveSpeed * 0.7f) * moveSpeedMultiplier * dodgeMultiplier;
+        //diagonalMoveSpeed = (currentMoveSpeed * 0.7f) * moveSpeedMultiplier * dodgeMultiplier;
     }
 
     void Update()
@@ -118,7 +117,8 @@ public class PlayerController : MonoBehaviour
     {
         if ((rb.velocity.x > 0 || rb.velocity.x < 0) && (rb.velocity.y > 0 || rb.velocity.y < 0))   // limits diagonal speed direction and reverts it 
         {
-            currentMoveSpeed = diagonalMoveSpeed * dodgeMultiplier;
+            //currentMoveSpeed = diagonalMoveSpeed * dodgeMultiplier;
+            currentMoveSpeed = (baseMoveSpeed * gameController.returnMovespeedMultiplier() * dodgeMultiplier) * 0.75f;
         }
         else
         {

@@ -33,14 +33,15 @@ public class GunController : MonoBehaviour
 
     private int currentGun;
 
-    private float damageMultiplier = 1f;
+    public float damageMultiplier = 1f;
     private float currentAmmoDamage;
     private float baseAmmoDamage = 5f;
     public int ammoHealth = 10;
     public float ammoSpeed = 15;   // 5 is base(standard)
 
     [SerializeField]
-    private float rateOfFire = 0.2f;
+    private float rateOfFire = 0.35f;
+    public float rateOfFireMultiplier = 0f;
     public bool isShooting;
     public bool canShoot;
     public float lastShotTime;
@@ -56,10 +57,6 @@ public class GunController : MonoBehaviour
         canShoot = true;
     }
 
-    public void increaseMultiplier()
-    {
-        damageMultiplier += 1f;
-    }
 
     public string getCurrentGun()
     {
@@ -78,10 +75,6 @@ public class GunController : MonoBehaviour
         return "no gun equipped somehow";
     }
 
-    public float getDamageMultiplier()
-    {
-        return damageMultiplier;
-    }
 
     public float getCurrentAmmoDamage()
     {
@@ -118,7 +111,7 @@ public class GunController : MonoBehaviour
         {
             float elapsedTime = Time.time - lastShotTime;
 
-            if (elapsedTime >= rateOfFire)
+            if (elapsedTime >= RofAdjusted())
             {
                 Shoot(player.projectileDirection);
                 lastShotTime = Time.time;
@@ -127,10 +120,15 @@ public class GunController : MonoBehaviour
         }
     }
 
+    public float RofAdjusted()
+    {
+        return rateOfFire - (rateOfFire * rateOfFireMultiplier);
+    }
+
     public IEnumerator ShootingCooldown()
     {
         canShoot = false;
-        yield return new WaitForSeconds(rateOfFire - 0.1f);
+        yield return new WaitForSeconds(RofAdjusted());
         canShoot = true;
     }
 
@@ -140,7 +138,7 @@ public class GunController : MonoBehaviour
         projectileClone.GetComponent<ProjectileController>().SetDirection(direction);
         projectileClone.GetComponent<ProjectileController>().setProjectileHealth(ammoHealth);
         projectileClone.GetComponent<ProjectileController>().setProjectileSpeed(ammoSpeed);
-        projectileClone.GetComponent<ProjectileController>().setProjectileDamage(currentAmmoDamage);
+        projectileClone.GetComponent<ProjectileController>().setProjectileDamage(currentAmmoDamage * damageMultiplier);
         ammoAmount -= 1;
     }
 
