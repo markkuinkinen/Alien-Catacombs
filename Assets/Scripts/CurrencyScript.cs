@@ -11,6 +11,7 @@ public class CurrencyScript : MonoBehaviour
     PlayerController player;
 
     private bool playerInRange;
+    public float currencyMovespeed = 4f;
 
     void Start()
     {
@@ -30,7 +31,7 @@ public class CurrencyScript : MonoBehaviour
     private void MoveTowardsPlayer()
     {
         Vector3 direction = (player.GetComponent<Transform>().position - this.transform.position).normalized;
-        transform.Translate(direction * 3f * Time.deltaTime);
+        transform.Translate(direction * currencyMovespeed * Time.deltaTime);
     }
 
     public void SetCurrencyAmount(int amount)

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4925858861218925342}
   - component: {fileID: 5505449979282082319}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2256302089429743739}
   - component: {fileID: 4893328078110368366}
   - component: {fileID: 3074213720417162837}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Level1Alien
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ Transform:
   m_Children:
   - {fileID: 8157062884208027774}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4893328078110368366
 Rigidbody2D:
@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1230515153885679558}
   - component: {fileID: 6864370296009762545}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8157062884208027774}
   - component: {fileID: 4223903104201161843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Centre
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6270588071431392071}
   - component: {fileID: 3674363491253366881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -75,6 +75,10 @@ MonoBehaviour:
   moveSpeedMultiplier: 1
   dodgeDuration: 0.3
   isDodging: 0
+  isInvulnerable: 0
+  damageHitBox: {fileID: 0}
+  playerSprites: []
+  playerChevronSprite: {fileID: 0}
 --- !u!50 &1343999921076460167
 Rigidbody2D:
   serializedVersion: 4

@@ -92,10 +92,10 @@ public class GunController : MonoBehaviour
             if (ammoAmount < 1)
             {
                 currentGun = 0;
-                baseAmmoDamage = 2;
+                baseAmmoDamage = 5;
                 ammoHealth = 10;
                 ammoSpeed = 15;
-                rateOfFire = 0.2f;
+                rateOfFire = 0.3f;
             }
         }
     }
@@ -139,6 +139,7 @@ public class GunController : MonoBehaviour
         projectileClone.GetComponent<ProjectileController>().setProjectileHealth(ammoHealth);
         projectileClone.GetComponent<ProjectileController>().setProjectileSpeed(ammoSpeed);
         projectileClone.GetComponent<ProjectileController>().setProjectileDamage(currentAmmoDamage * damageMultiplier);
+        projectileClone.GetComponent<ProjectileController>().SetAmmoType(getCurrentGun());
         ammoAmount -= 1;
     }
 
@@ -154,7 +155,7 @@ public class GunController : MonoBehaviour
         ammoAmount = 50;
         baseAmmoDamage = 20;
         ammoSpeed = 1;
-        ammoHealth = 10;
+        ammoHealth = 1;
         rateOfFire = 0.9f;
     }
     public void equipLaser()

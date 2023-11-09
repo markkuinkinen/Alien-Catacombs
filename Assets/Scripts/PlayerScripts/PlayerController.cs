@@ -31,6 +31,10 @@ public class PlayerController : MonoBehaviour
     private bool isDodging;
 
     private float timer;
+    public bool isInvulnerable;
+    public BoxCollider2D damageHitBox;
+    public SpriteRenderer[] playerSprites;
+    public SpriteRenderer playerChevronSprite;
 
     void Start()
     {
@@ -39,6 +43,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         camera = GetComponent<Camera>();
         isAlive = true;
+        isInvulnerable = false;
         currentMoveSpeed = baseMoveSpeed * moveSpeedMultiplier;
         //diagonalMoveSpeed = (currentMoveSpeed * 0.7f) * moveSpeedMultiplier * dodgeMultiplier;
     }
@@ -79,6 +84,29 @@ public class PlayerController : MonoBehaviour
 
         isDodging = false;
         dodgeMultiplier = 1f;
+    }
+
+    IEnumerator takingDamage()
+    {
+        isInvulnerable = true;
+        var originalHitBoxSize = damageHitBox.size;
+        damageHitBox.size = new Vector2(0f, 0f);
+        var originalColor = playerSprites[0].color;
+        var originalChevronColor = playerChevronSprite.color;
+        for (int i = 0; i < playerSprites.Length; i++)
+        {
+            playerSprites[i].color = new Color(1, 1, 1, 0.35f);
+        }
+        playerChevronSprite.color = new Color(1, 0, 0, 0.35f);
+
+        yield return new WaitForSeconds(2f);
+        isInvulnerable = false;
+        damageHitBox.size = originalHitBoxSize;
+        for (int i = 0; i < playerSprites.Length - 1; i++)
+        {
+            playerSprites[i].color = originalColor;
+        }
+        playerChevronSprite.color = originalChevronColor;
     }
 
     void SideStep()
@@ -155,9 +183,31 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.tag == "Enemy" && !isInvulnerable)
         {
             gameController.currentHp -= 20;
+            StartCoroutine(takingDamage());
+        }
+
+        // Gives full HP
+        if (collision.tag == "Beer")
+        {
+            gameController.currentHp = gameController.maxPlayerHealth;
+        }
+
+        // Gives half hp
+        if (collision.tag == "Meat")
+        {
+            if (gameController.currentHp + (gameController.maxPlayerHealth / 2) <= gameController.maxPlayerHealth)
+            {
+                gameController.currentHp += gameController.maxPlayerHealth / 2;
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                gameController.currentHp = gameController.maxPlayerHealth;
+                Destroy(collision.gameObject);
+            }
         }
     }
 }

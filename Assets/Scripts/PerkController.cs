@@ -16,7 +16,7 @@ public class PerkController : MonoBehaviour
 
     // 7 perks
     public GameObject[] perks;
-
+    public CircleCollider2D magnetPerkCollider;
 
     
     //public List<GameObject> perksList = new List<GameObject>();
@@ -120,6 +120,7 @@ public class PerkController : MonoBehaviour
         Debug.Log("magnet distance added");
         uiController.isPaused = false;
         SetPerksInactive();
+        magnetPerkCollider.radius += 1f;
         gameController.perkContinue();
 
     }
