@@ -145,3 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   droppedLaser: {fileID: 3924759999083107529, guid: 5c41230656a3b4e44b8286c350e052b4, type: 3}
   droppedRocket: {fileID: 343951554039889891, guid: 85f86e275acb86f4eba59107c453aabb, type: 3}
+  droppedBeer: {fileID: 6558306505441819969, guid: 9ecee4d537088d14991ae73688ab7fa1, type: 3}
+  killObject: {fileID: 3685262107086333772, guid: 5482bf8d3e5d2a94b9bc177ac8643287, type: 3}
+  timeStop: {fileID: 2063999737479216534, guid: 76e207c16b3f0254e99d8218b3bfcea5, type: 3}
+  MagnetDrop: {fileID: 6619827289527781307, guid: e3cbff38f7cc0c44ebf99f2f1c154306, type: 3}

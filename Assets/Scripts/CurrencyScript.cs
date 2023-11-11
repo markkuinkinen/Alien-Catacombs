@@ -17,6 +17,7 @@ public class CurrencyScript : MonoBehaviour
     {
         gameController = FindObjectOfType<GameController>();
         player = FindObjectOfType<PlayerController>();
+        this.transform.rotation = Quaternion.identity;
     }
 
     // Update is called once per frame
@@ -24,14 +25,14 @@ public class CurrencyScript : MonoBehaviour
     {
         if (playerInRange)
         {
-            MoveTowardsPlayer();
+            MoveTowardsPlayer(player.currentMoveSpeed + 1f);
         }
     }
 
-    private void MoveTowardsPlayer()
+    private void MoveTowardsPlayer(float movespeed)
     {
         Vector3 direction = (player.GetComponent<Transform>().position - this.transform.position).normalized;
-        transform.Translate(direction * currencyMovespeed * Time.deltaTime);
+        transform.Translate(direction * movespeed * Time.deltaTime);
     }
 
     public void SetCurrencyAmount(int amount)
@@ -54,11 +55,4 @@ public class CurrencyScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "PlayerMagnet")
-        {
-            playerInRange = false;
-        }
-    }
 }

@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 
     public int playerLevel = 1;
     [SerializeField]
-    private float pointsToLevel = 1000;
+    private float pointsToLevel = 100f;
     [SerializeField]
     private float currentExp = 0;
     public float totalExp;
@@ -90,13 +90,13 @@ public class GameController : MonoBehaviour
         if (expSlider.value >= expSlider.maxValue)
         {
             UIController.isPaused = true;
-
+            UIController.playerIsPaused = true;
             perkMenu.SetActive(true);
             perkController.displayPerks();
             score += (int)currentExp;
             currentExp = 0;
             playerLevel += 1;
-            pointsToLevel += (pointsToLevel * 0.15f);
+            //pointsToLevel += (pointsToLevel * 0.15f);
         }
     }
 
@@ -113,8 +113,9 @@ public class GameController : MonoBehaviour
 
     public void perkContinue()
     {
-        pointsToLevel += (pointsToLevel * 0.5f);
+        //pointsToLevel += (pointsToLevel * 0.5f);
         UIController.isPaused = false;
+        UIController.playerIsPaused = false;
         gunController.isShooting = false;
         perkMenu.SetActive(false);
     }

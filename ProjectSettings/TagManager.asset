@@ -12,6 +12,9 @@ TagManager:
   - PlayerMagnet
   - Meat
   - Beer
+  - TimeStop
+  - KillObject
+  - Magnet
   layers:
   - Default
   - TransparentFX

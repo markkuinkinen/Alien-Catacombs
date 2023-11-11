@@ -67,7 +67,7 @@ public class ProjectileController : MonoBehaviour
 
     void Update()
     {
-        if (!UIController.isPaused)
+        if (!UIController.playerIsPaused)
         {
             rb.velocity = (direction * projectileSpeed).normalized * 10f;
 

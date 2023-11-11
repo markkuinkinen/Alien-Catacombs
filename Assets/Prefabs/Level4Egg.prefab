@@ -116,7 +116,7 @@ Transform:
   m_Children:
   - {fileID: 1084851492148215029}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &930006506979101141
 MonoBehaviour:
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eggCurrency: {fileID: 527621755478163542, guid: 24a4656786486b14d90250981bc5f8f4, type: 3}
-  eggEvolvedSpawn: {fileID: 0}
+  eggEvolvedSpawn: {fileID: 2607908136272845099, guid: 7749e97e8e6cf3f4ba19de95e198375d, type: 3}
 --- !u!70 &54498304203649374
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

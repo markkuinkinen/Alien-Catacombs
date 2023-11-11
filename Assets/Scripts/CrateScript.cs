@@ -6,6 +6,12 @@ public class CrateScript : MonoBehaviour
 {
     public GameObject droppedLaser;
     public GameObject droppedRocket;
+    public GameObject droppedBeer;
+    public GameObject killObject;
+    public GameObject timeStop;
+    public GameObject MagnetDrop;
+
+    private float Health;
 
     private GameObject[] droppables;
     void Update()
@@ -15,12 +21,14 @@ public class CrateScript : MonoBehaviour
 
     private void Start()
     {
-        droppables = new GameObject[] { droppedLaser, droppedRocket };
+        Health = 30f;
     }
 
     void dropSomething()
     {
-        GameObject droppedItem = Instantiate(droppables[Random.Range(0, 2)], this.transform.position, this.transform.rotation);
+        droppables = new GameObject[] { droppedLaser, droppedRocket, droppedBeer, killObject, timeStop, MagnetDrop };
+
+        GameObject droppedItem = Instantiate(droppables[Random.Range(0, 6)], this.transform.position, this.transform.rotation);
         droppedItem.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -45));
         Destroy(this.gameObject);
     }
@@ -29,7 +37,13 @@ public class CrateScript : MonoBehaviour
     {
         if (collision.tag == "Projectile")
         {
-            dropSomething();
+            Health -= 10f;
+
+            if (Health <= 0)
+            {
+                dropSomething();
+            }
+
             Destroy(collision.gameObject);
         }
     }

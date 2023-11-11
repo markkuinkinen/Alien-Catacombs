@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         //diagonalMoveSpeed = (currentMoveSpeed * 0.7f) * moveSpeedMultiplier * dodgeMultiplier;
 
-        if (isAlive && !UIController.isPaused)
+        if (isAlive && !UIController.playerIsPaused)
         {
             Move();
             TrackMouse();
@@ -207,7 +207,9 @@ public class PlayerController : MonoBehaviour
             {
                 gameController.currentHp = gameController.maxPlayerHealth;
                 Destroy(collision.gameObject);
-            }
+            }   
+            
         }
+
     }
 }

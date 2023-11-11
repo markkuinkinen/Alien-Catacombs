@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
     public Text deathText;
 
     public bool isPaused;
+    public bool playerIsPaused;
     public Slider playerHealthSlider;
 
     void Start()
@@ -96,11 +97,13 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
         {
             PauseMenu.SetActive(true);
+            playerIsPaused = true;
             isPaused = true;
             gunController.isShooting = false;
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && isPaused)
         {
+            playerIsPaused = false;
             PauseMenu.SetActive(false);
             isPaused = false;
         }
@@ -108,6 +111,7 @@ public class UIController : MonoBehaviour
 
     public void ResumeGame()
     {
+        playerIsPaused = false;
         PauseMenu.SetActive(false);
         isPaused = false;
     }
