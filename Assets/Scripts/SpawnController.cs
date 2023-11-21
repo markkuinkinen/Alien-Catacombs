@@ -12,7 +12,7 @@ public class SpawnController : MonoBehaviour
     public GameObject eyeballEnemy;        //1
     public GameObject alienSoldierEnemy;   //2
     public GameObject eggBugEnemy;         //3     TODO
-    public GameObject bossEnemy;           //4     TODO
+    //public GameObject bossEnemy;           //4     TODO
     [SerializeField]
     private GameObject[] spawnableEnemies;
 
@@ -82,7 +82,7 @@ public class SpawnController : MonoBehaviour
     //spawnableEnemies = new GameObject[] {wormEnemy, eyeballEnemy, alienSoldierEnemy, eggBugEnemy, bossEnemy };
     private IEnumerator spawnEnemies(float interval)
     {
-        spawnableEnemies = new GameObject[] { wormEnemy, eyeballEnemy, alienSoldierEnemy, eggBugEnemy, bossEnemy };
+        spawnableEnemies = new GameObject[] { wormEnemy, eyeballEnemy, alienSoldierEnemy, eggBugEnemy }; //bossEnemy };
 
         while (true)
         {
@@ -133,17 +133,17 @@ public class SpawnController : MonoBehaviour
                 GameObject previousSpawnedEnemy6 = Instantiate(spawnableEnemies[0], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
                 GameObject previousSpawnedEnemy7 = Instantiate(spawnableEnemies[1], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
                 GameObject previousSpawnedEnemy8 = Instantiate(spawnableEnemies[3], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
-                GameObject previousSpawnedEnemy9 = Instantiate(spawnableEnemies[4], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+                GameObject previousSpawnedEnemy9 = Instantiate(spawnableEnemies[3], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
             }
             else
             {
                 Debug.Log("final level spawned >20" + gameController.playerLevel);
-                GameObject previousSpawnedEnemy10 = Instantiate(spawnableEnemies[3], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
-                GameObject previousSpawnedEnemy11 = Instantiate(spawnableEnemies[4], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
-                GameObject previousSpawnedEnemy12 = Instantiate(spawnableEnemies[4], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
-                GameObject previousSpawnedEnemy13 = Instantiate(spawnableEnemies[4], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
-                GameObject previousSpawnedEnemy14 = Instantiate(spawnableEnemies[5], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
-                GameObject previousSpawnedEnemy15 = Instantiate(spawnableEnemies[5], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+                GameObject previousSpawnedEnemy10 = Instantiate(spawnableEnemies[Random.Range(1, 4)], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+                GameObject previousSpawnedEnemy11 = Instantiate(spawnableEnemies[Random.Range(1, 4)], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+                GameObject previousSpawnedEnemy12 = Instantiate(spawnableEnemies[Random.Range(1, 4)], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+                GameObject previousSpawnedEnemy13 = Instantiate(spawnableEnemies[Random.Range(2, 4)], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+                GameObject previousSpawnedEnemy14 = Instantiate(spawnableEnemies[Random.Range(2, 4)], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+                GameObject previousSpawnedEnemy15 = Instantiate(spawnableEnemies[Random.Range(2, 4)], new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
 
             }
 

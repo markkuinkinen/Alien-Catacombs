@@ -9,7 +9,7 @@ public class EyeController : MonoBehaviour
     Rigidbody2D rb;
     PlayerController player;
     public GameObject eyeCurrency;
-    private float movespeed = 2f;
+    private float movespeed = 3.5f;
     //public Transform centreOfEnemy;
 
     //give hp to lower

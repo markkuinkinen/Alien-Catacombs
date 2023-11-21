@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     public GameObject wormCurrency;
 
     //give hp to lower
-    private float movespeed = 2f;
+    private float movespeed = 3.5f;
     private float health = 20;
 
     public bool canMove; //delete

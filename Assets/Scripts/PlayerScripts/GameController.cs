@@ -113,7 +113,7 @@ public class GameController : MonoBehaviour
 
     public void perkContinue()
     {
-        //pointsToLevel += (pointsToLevel * 0.5f);
+        pointsToLevel += (pointsToLevel * 0.3f);
         UIController.isPaused = false;
         UIController.playerIsPaused = false;
         gunController.isShooting = false;

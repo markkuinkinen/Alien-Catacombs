@@ -11,7 +11,7 @@ public class SoldierScript : MonoBehaviour
     public Transform centreOfEnemy;
     public GameObject soldierCurrency;
 
-    private float movespeed = 1f;
+    private float movespeed = 2f;
     [SerializeField]
     private float Health = 40;
 
