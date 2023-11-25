@@ -20,7 +20,11 @@ public class KillObjectController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(Rotating());
+        if (isShooting)
+        {
+            StartCoroutine(Rotating());
+        }
+
     }
 
     void shooting()
@@ -58,9 +62,9 @@ public class KillObjectController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Projectile"))
+        if (collision.CompareTag("Player"))
         {
-            StartCoroutine(Rotating());
+            isShooting = true;
         }
     }
 }

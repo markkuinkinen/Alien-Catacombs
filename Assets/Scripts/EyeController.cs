@@ -50,7 +50,6 @@ public class EyeController : MonoBehaviour
             eyeDroppedCurrency.GetComponent<CurrencyScript>().SetCurrencyAmount(15);
             GameController.giveExp(100);
             Destroy(this.gameObject);
-            Destroy(other.gameObject);
         }
     }
 }

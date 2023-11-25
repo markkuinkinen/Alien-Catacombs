@@ -56,14 +56,7 @@ public class SoldierScript : MonoBehaviour
                 currencyDrop.GetComponent<CurrencyScript>().SetCurrencyAmount(20);
                 GameController.giveExp(200);
                 Destroy(this.gameObject);
-                Destroy(other.gameObject);
             }
-            else
-            { 
-                Debug.Log(Health);
-                Destroy(other.gameObject);
-            }
-            
         }
     }
 }

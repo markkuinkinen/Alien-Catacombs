@@ -179,7 +179,7 @@ public class GunController : MonoBehaviour
             }
             else
             {
-                ammoAmount += 100;
+                ammoAmount += 150;
             }
             Destroy(ammoType.gameObject);
         }
@@ -191,7 +191,7 @@ public class GunController : MonoBehaviour
             }
             else
             {
-                ammoAmount += 100;
+                ammoAmount += 150;
             }
             Destroy(ammoType.gameObject);
         }
@@ -249,7 +249,7 @@ public class GunController : MonoBehaviour
         currentAmmoDamage = baseAmmoDamage * gameController.returnDamageMultiplier();
 
 
-        if (isShooting)
+        if (isShooting && !UIController.playerIsPaused && !UIController.isPaused)
         {
             // Start the coroutine only if it's not already running
             if (!isShootingCoroutineRunning)

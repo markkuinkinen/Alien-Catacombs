@@ -11,7 +11,8 @@ public class CurrencyScript : MonoBehaviour
     PlayerController player;
 
     private bool playerInRange;
-    public float currencyMovespeed = 4f;
+    public bool magnetInRange;
+    public float currencyMovespeed = 9f;
 
     void Start()
     {
@@ -26,6 +27,11 @@ public class CurrencyScript : MonoBehaviour
         if (playerInRange)
         {
             MoveTowardsPlayer(player.currentMoveSpeed + 1f);
+        }
+
+        if (magnetInRange)
+        {
+            MoveTowardsPlayer(currencyMovespeed);
         }
     }
 
@@ -51,7 +57,15 @@ public class CurrencyScript : MonoBehaviour
 
         if (collision.tag == "PlayerMagnet")
         {
-            playerInRange = true;
+            magnetInRange = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "PlayerMagnet")
+        {
+            magnetInRange = false;
         }
     }
 

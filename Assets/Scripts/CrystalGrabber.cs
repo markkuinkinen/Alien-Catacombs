@@ -8,34 +8,51 @@ public class CrystalGrabber : MonoBehaviour
     public GameObject spriteObject;
     public CircleCollider2D circleCollider;
     public GameObject playerMagnetIcon;
+
+    public float f;
+    private bool magnetOn;
+
     void Start()
     {
-        
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        if (magnetOn)
+        {
+            var timer = 0f;
+            timer += Time.deltaTime;
+
+            if (timer <= 3f)
+            {
+                grabAllCrystals();
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 
     void grabAllCrystals()
     {
-        playerMagnet.enabled = true;
-
         var timer = 0f;
         timer += Time.deltaTime;
+        f = timer;
 
         var originalMagnetSize = playerMagnet.radius;
         playerMagnet.radius = 150f;
         spriteObject.SetActive(false);
         circleCollider.enabled = false;
+        playerMagnetIcon.SetActive(true);
 
-        if (timer > 10f)
+        if (timer > 7.5f)
         {
             playerMagnet.radius = originalMagnetSize;
             playerMagnet.enabled = false;
             Destroy(this.gameObject);
+            magnetOn = false;
         }
     }
 
@@ -43,7 +60,7 @@ public class CrystalGrabber : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            grabAllCrystals();
+            magnetOn = true;
         }
     }
 }
