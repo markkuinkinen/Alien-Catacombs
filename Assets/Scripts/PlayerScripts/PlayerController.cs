@@ -193,6 +193,7 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "Beer")
         {
             gameController.currentHp = gameController.maxPlayerHealth;
+            Destroy(collision.gameObject);
         }
 
         // Gives half hp

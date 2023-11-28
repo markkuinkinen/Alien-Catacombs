@@ -89,14 +89,18 @@ public class GameController : MonoBehaviour
     {
         if (expSlider.value >= expSlider.maxValue)
         {
-            UIController.isPaused = true;
             UIController.playerIsPaused = true;
+            UIController.enemyIsPaused = false;
+            UIController.isPaused = true;
+            gunController.isShooting = false;
+            gunController.canShoot = false;
+
             perkMenu.SetActive(true);
             perkController.displayPerks();
             score += (int)currentExp;
             currentExp = 0;
             playerLevel += 1;
-            //pointsToLevel += (pointsToLevel * 0.15f);
+            pointsToLevel += (pointsToLevel * 0.15f);
         }
     }
 
@@ -117,6 +121,7 @@ public class GameController : MonoBehaviour
         UIController.isPaused = false;
         UIController.playerIsPaused = false;
         gunController.isShooting = false;
+        gunController.canShoot = true;
         perkMenu.SetActive(false);
     }
 

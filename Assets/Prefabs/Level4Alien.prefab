@@ -282,7 +282,7 @@ Transform:
   m_Children:
   - {fileID: 3705562323650804695}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3600986458231277799
 GameObject:
@@ -372,6 +372,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EvolvedEggCurrency: {fileID: 8810750084422071135, guid: 5c17c8f3661f84947892d28a0fcecf6e, type: 3}
+  blood:
+  - {fileID: 1814246149421157628, guid: 72f067d29c15d6642bb161dc9bb809a7, type: 3}
+  - {fileID: 4301692654807039468, guid: 0020ec9b7d28da6408b6613554f4a442, type: 3}
+  - {fileID: 3397227148380086276, guid: c18b1397c3cf1634faab33e5d928ca34, type: 3}
+  - {fileID: 3041920910672213287, guid: 016be49f91dee174bbdbf748b214c785, type: 3}
+  - {fileID: 3112335206145068514, guid: dd8e2cfe48a710e469a2b03ab403b679, type: 3}
+  - {fileID: 5508785185541965472, guid: d51cf4bb6c236e344acc85d39305d9ff, type: 3}
+  - {fileID: 912526280880432643, guid: 4507088a23c9b964a96a5c8836f1fc65, type: 3}
   timer: 0
   movementTransform: {fileID: 6655473962138640500}
   centreOfEnemy: {fileID: 3705562323650804695}

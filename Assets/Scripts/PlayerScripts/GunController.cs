@@ -35,6 +35,7 @@ public class GunController : MonoBehaviour
 
     public float damageMultiplier = 1f;
     private float currentAmmoDamage;
+    [SerializeField]
     private float baseAmmoDamage = 5f;
     public int ammoHealth = 10;
     public float ammoSpeed = 15;   // 5 is base(standard)
@@ -46,7 +47,10 @@ public class GunController : MonoBehaviour
     public bool canShoot;
     public float lastShotTime;
     private bool isShootingCoroutineRunning = false;
-    
+
+    public bool timeStopped;
+    private float timeStopMultiplier;
+
     void Start()
     {
         UIController = FindObjectOfType<UIController>();
@@ -57,6 +61,7 @@ public class GunController : MonoBehaviour
         canShoot = true;
     }
 
+    
 
     public string getCurrentGun()
     {
@@ -92,10 +97,10 @@ public class GunController : MonoBehaviour
             if (ammoAmount < 1)
             {
                 currentGun = 0;
-                baseAmmoDamage = 5;
                 ammoHealth = 10;
                 ammoSpeed = 15;
                 rateOfFire = 0.3f;
+                baseAmmoDamage = 5;
             }
         }
     }
@@ -138,7 +143,7 @@ public class GunController : MonoBehaviour
         projectileClone.GetComponent<ProjectileController>().SetDirection(direction);
         projectileClone.GetComponent<ProjectileController>().setProjectileHealth(ammoHealth);
         projectileClone.GetComponent<ProjectileController>().setProjectileSpeed(ammoSpeed);
-        projectileClone.GetComponent<ProjectileController>().setProjectileDamage(currentAmmoDamage * damageMultiplier);
+        projectileClone.GetComponent<ProjectileController>().setProjectileDamage((currentAmmoDamage * damageMultiplier) * timeStopMultiplier);
         projectileClone.GetComponent<ProjectileController>().SetAmmoType(getCurrentGun());
         ammoAmount -= 1;
     }
@@ -153,20 +158,20 @@ public class GunController : MonoBehaviour
         Debug.Log("rocket gun grabbed");
         currentGun = 1;
         ammoAmount = 50;
-        baseAmmoDamage = 20;
         ammoSpeed = 1;
         ammoHealth = 1;
         rateOfFire = 0.9f;
+        baseAmmoDamage = 20;
     }
     public void equipLaser()
     {
         Debug.Log("laser gun grabbed");
         currentGun = 2;
         ammoAmount = 50;
-        baseAmmoDamage = 50;
         ammoSpeed = 10;
         ammoHealth = 2000;
         rateOfFire = 0.7f;
+        baseAmmoDamage = 30;
     }
 
     private void OnTriggerEnter2D(Collider2D ammoType)
@@ -238,12 +243,25 @@ public class GunController : MonoBehaviour
         }
     }
 
-    
+    void timeStopChecker()
+    {
+
+
+        if (timeStopped)
+        {
+            timeStopMultiplier = 5f;
+        }
+        else
+        {
+            timeStopMultiplier = 1f;
+        }
+    }
 
     void Update()
     {
         revertGun();
         GunUISwapper();
+        timeStopChecker();
 
         // To apply the multiplier from the store 
         currentAmmoDamage = baseAmmoDamage * gameController.returnDamageMultiplier();

@@ -8,7 +8,8 @@ public class EvolvedEggScript : MonoBehaviour
     GameController gameController;
     UIController uiController;
     PlayerController player;
-    private float movespeed = 6.5f;
+    public List<GameObject> blood;
+    private float movespeed = 8.5f;
 
     private float Health = 60;
 
@@ -36,23 +37,27 @@ public class EvolvedEggScript : MonoBehaviour
 
     void Update()
     {
+
         if (!uiController.isPaused)
         {
-            directionOfPlayer = (player.GetComponent<Transform>().position - this.transform.position).normalized;
-
-            timer += Time.deltaTime;
-            if (timer < 4f)
+            if (!uiController.enemyIsPaused)
             {
-                movementTransform.Translate(directionToMove * movespeed * Time.deltaTime);
-            }
-            else
-            {
-                directionToMove = (player.GetComponent<Transform>().position - transform.position).normalized;
-                rotate();
-                //float angle = Mathf.Atan2(directionToMove.y, directionToMove.x) * Mathf.Rad2Deg;
-                //centreOfEnemy.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+                directionOfPlayer = (player.GetComponent<Transform>().position - this.transform.position).normalized;
 
-                timer = 0f;
+                timer += Time.deltaTime;
+                if (timer < 4f)
+                {
+                    movementTransform.Translate(directionToMove * movespeed * Time.deltaTime);
+                }
+                else
+                {
+                    directionToMove = (player.GetComponent<Transform>().position - transform.position).normalized;
+                    rotate();
+                    //float angle = Mathf.Atan2(directionToMove.y, directionToMove.x) * Mathf.Rad2Deg;
+                    //centreOfEnemy.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+
+                    timer = 0f;
+                }
             }
         }
     }
@@ -79,6 +84,12 @@ public class EvolvedEggScript : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
 
+    public void dropBlood()
+    {
+        Quaternion bloodRotation = Quaternion.Euler(0f, 270f, 90f);
+        Instantiate(blood[Random.Range(0, 7)], this.transform.position, bloodRotation);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Projectile")
@@ -90,6 +101,7 @@ public class EvolvedEggScript : MonoBehaviour
             {
                 EvolvedEggCurrency.GetComponent<CurrencyScript>().SetCurrencyAmount(30);
                 gameController.giveExp(50);
+                dropBlood();
                 Destroy(this.gameObject);
             }
         }

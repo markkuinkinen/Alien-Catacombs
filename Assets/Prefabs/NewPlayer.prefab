@@ -551,6 +551,7 @@ MonoBehaviour:
   laserAmmo: {fileID: 8766368667120193651, guid: 1abbbf5647af28846a4f83e2a02ff7c6, type: 3}
   ammoAmount: 0
   damageMultiplier: 1
+  baseAmmoDamage: 5
   ammoHealth: 10
   ammoSpeed: 5
   rateOfFire: 0.1
@@ -558,6 +559,7 @@ MonoBehaviour:
   isShooting: 0
   canShoot: 0
   lastShotTime: 0
+  timeStopped: 0
 --- !u!58 &4911176281719204574
 CircleCollider2D:
   m_ObjectHideFlags: 0

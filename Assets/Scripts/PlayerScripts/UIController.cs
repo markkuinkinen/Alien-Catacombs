@@ -24,6 +24,7 @@ public class UIController : MonoBehaviour
 
     public bool isPaused;
     public bool playerIsPaused;
+    public bool enemyIsPaused;
     public Slider playerHealthSlider;
 
     void Start()
@@ -92,20 +93,24 @@ public class UIController : MonoBehaviour
         currencyAmountText.text = gameController.currencyAmount.ToString();
     }
 
-    void PauseGame()
+    public void PauseGame()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
         {
             PauseMenu.SetActive(true);
             playerIsPaused = true;
+            enemyIsPaused = false;
             isPaused = true;
             gunController.isShooting = false;
+            gunController.canShoot = false;
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && isPaused)
         {
-            playerIsPaused = false;
             PauseMenu.SetActive(false);
+            playerIsPaused = false;
+            enemyIsPaused = false;
             isPaused = false;
+            gunController.canShoot = true;
         }
     }
 

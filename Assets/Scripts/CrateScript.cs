@@ -21,7 +21,7 @@ public class CrateScript : MonoBehaviour
 
     private void Start()
     {
-        Health = 30f;
+        Health = 20f;
     }
 
     void dropSomething()

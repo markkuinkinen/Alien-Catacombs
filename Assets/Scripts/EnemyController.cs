@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     public Transform centreOfEnemy;
 
     public GameObject wormCurrency;
+    public GameObject[] blood;
 
     //give hp to lower
     private float movespeed = 3.5f;
@@ -28,13 +29,21 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!UIController.isPaused && canMove) //delete
+        if (!UIController.isPaused)
         {
-            FollowPlayer();
+            if (!UIController.enemyIsPaused)
+            {
+                FollowPlayer();
+            }
         }
 
     }
     
+    public void dropBlood()
+    {
+        Quaternion bloodRotation = Quaternion.Euler(0f, 270f, 90f);
+        Instantiate(blood[Random.Range(0, 7)], this.transform.position, bloodRotation);
+    }
 
     void FollowPlayer()
     {
@@ -55,6 +64,7 @@ public class EnemyController : MonoBehaviour
                 GameObject droppedCurrency = Instantiate(wormCurrency, this.transform.position, this.transform.rotation);
                 droppedCurrency.GetComponent<CurrencyScript>().SetCurrencyAmount(10);
                 GameController.giveExp(100);
+                dropBlood();
                 Destroy(this.gameObject);  //change
             }
 

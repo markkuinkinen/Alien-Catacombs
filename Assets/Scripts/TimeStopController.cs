@@ -5,6 +5,7 @@ using UnityEngine;
 public class TimeStopController : MonoBehaviour
 {
     UIController uiController;
+    GunController gunController;
     public GameObject clockSprite;
     CircleCollider2D HitCollider;
     public float timer;
@@ -13,6 +14,7 @@ public class TimeStopController : MonoBehaviour
     {
         HitCollider = GetComponent<CircleCollider2D>();
         uiController = FindObjectOfType<UIController>();
+        gunController = FindObjectOfType<GunController>();
     }
 
     // Update is called once per frame
@@ -20,20 +22,21 @@ public class TimeStopController : MonoBehaviour
     {
         if (timeStopped)
         {
+            timer += Time.deltaTime;
             StopTime();
         }
     }
 
     void StopTime()
     {
-        timer += Time.deltaTime;
-
-        uiController.isPaused = true;
+        uiController.enemyIsPaused = true;
         clockSprite.SetActive(false);
         HitCollider.enabled = false;
-        if (timer >= 7.5f)
+        gunController.timeStopped = true;
+        if (timer >= 4f)
         {
-            uiController.isPaused = false;
+            gunController.timeStopped = false;
+            uiController.enemyIsPaused = false;
             timeStopped = false;
             Destroy(this.gameObject);
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class SpawnController : MonoBehaviour
@@ -19,10 +20,8 @@ public class SpawnController : MonoBehaviour
     public GameObject cratePrefab;
 
     private float spawnInterval = 2.5f;
-
-
-    //ADD MORE ENEMIES WITH DIFFERENT HP/SPEED/LOOK
-
+    [SerializeField]
+    private float crateTimer = 0f;
 
     void Start()
     {
@@ -30,7 +29,6 @@ public class SpawnController : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         UIController = FindObjectOfType<UIController>();
         StartCoroutine(spawnEnemies(spawnInterval));
-        StartCoroutine(SpawnCrates());
     }
 
     private void Update()
@@ -41,6 +39,8 @@ public class SpawnController : MonoBehaviour
         }
         else if (!UIController.isPaused && player.isAlive)
         {
+            crateTimer += Time.deltaTime;
+            SpawnCrates();
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 StartCoroutine(spawnEnemies(spawnInterval));
@@ -55,28 +55,30 @@ public class SpawnController : MonoBehaviour
         }*/
     }
 
-    private IEnumerator SpawnCrates()
+    void SpawnCrates()
     {
-        yield return new WaitForSeconds(10f);
-
-        var sideToSpawnOn = Random.Range(0, 2); //add up/down
-
-        //Left side crate
-        if (sideToSpawnOn == 0)
+        if (crateTimer >= 13f)
         {
-            GameObject spawnedCrateLeft = Instantiate(cratePrefab, new Vector3(player.GetComponent<Transform>().position.x - 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+            var sideToSpawnOn = Random.Range(0, 2); //add up/down
+            print("spawned crate");
 
-        }
-        else // Right side crate
-        {
-            GameObject spawnedCrateRight = Instantiate(cratePrefab, new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+            //Left side crate
+            if (sideToSpawnOn == 0)
+            {
+                GameObject spawnedCrateLeft = Instantiate(cratePrefab, new Vector3(player.GetComponent<Transform>().position.x - 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+
+            }
+            else // Right side crate
+            {
+                GameObject spawnedCrateRight = Instantiate(cratePrefab, new Vector3(player.transform.position.x + 23f, Random.Range(-13f, 13f), 0f), Quaternion.identity);
+            }
+            crateTimer = 0f;
         }
     }
 
     public void restartSpawning()
     {
         StartCoroutine(spawnEnemies(spawnInterval));
-        StartCoroutine(SpawnCrates());
     }
 
     //spawnableEnemies = new GameObject[] {wormEnemy, eyeballEnemy, alienSoldierEnemy, eggBugEnemy, bossEnemy };
