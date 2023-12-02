@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 public class PlayerController : MonoBehaviour
 {
     UIController UIController;
+    SoundController soundController;
     GameController gameController;
     public Transform centreTransform;   // to control the rotation for the player sprite
     public GunController gunController;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        soundController = FindObjectOfType<SoundController>();
         gameController = FindObjectOfType<GameController>();
         UIController = FindObjectOfType<UIController>();
         rb = GetComponent<Rigidbody2D>();
@@ -192,6 +194,7 @@ public class PlayerController : MonoBehaviour
         // Gives full HP
         if (collision.tag == "Beer")
         {
+            soundController.PlayEatSound();
             gameController.currentHp = gameController.maxPlayerHealth;
             Destroy(collision.gameObject);
         }
@@ -202,10 +205,12 @@ public class PlayerController : MonoBehaviour
             if (gameController.currentHp + (gameController.maxPlayerHealth / 2) <= gameController.maxPlayerHealth)
             {
                 gameController.currentHp += gameController.maxPlayerHealth / 2;
+                soundController.PlayEatSound();
                 Destroy(collision.gameObject);
             }
             else
             {
+                soundController.PlayEatSound();
                 gameController.currentHp = gameController.maxPlayerHealth;
                 Destroy(collision.gameObject);
             }   

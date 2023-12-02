@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GunController : MonoBehaviour
 {
     UIController UIController;
+    SoundController soundController;
     // UI
     public GameObject standardGunPicture;
     public GameObject laserGunPicture;
@@ -38,7 +39,7 @@ public class GunController : MonoBehaviour
     [SerializeField]
     private float baseAmmoDamage = 5f;
     public int ammoHealth = 10;
-    public float ammoSpeed = 15;   // 5 is base(standard)
+    public float ammoSpeed = 20;   // 5 is base(standard)
 
     [SerializeField]
     private float rateOfFire = 0.35f;
@@ -53,6 +54,7 @@ public class GunController : MonoBehaviour
 
     void Start()
     {
+        soundController = FindObjectOfType<SoundController>();
         UIController = FindObjectOfType<UIController>();
         gameController = FindObjectOfType<GameController>();
         ammoType = new GameObject[] { normalAmmo, rocketAmmo, laserAmmo};
@@ -98,7 +100,7 @@ public class GunController : MonoBehaviour
             {
                 currentGun = 0;
                 ammoHealth = 10;
-                ammoSpeed = 15;
+                ammoSpeed = 20;
                 rateOfFire = 0.3f;
                 baseAmmoDamage = 5;
             }
@@ -139,6 +141,7 @@ public class GunController : MonoBehaviour
 
     public void Shoot(Vector2 direction)
     {
+        soundController.PlayGunSound(currentGun);
         GameObject projectileClone = Instantiate(ammoType[currentGun], projectileSpawnLocation.GetComponent<Transform>().position, projectileSpawnLocation.GetComponent<Transform>().rotation);
         projectileClone.GetComponent<ProjectileController>().SetDirection(direction);
         projectileClone.GetComponent<ProjectileController>().setProjectileHealth(ammoHealth);

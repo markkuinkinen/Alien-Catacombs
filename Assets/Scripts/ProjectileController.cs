@@ -6,6 +6,7 @@ public class ProjectileController : MonoBehaviour
 {
     UIController UIController;
     GunController gunController;
+    SoundController soundController;
     Rigidbody2D rb;
     private Vector2 direction;
     private float projectileSpeed = 5f;
@@ -24,6 +25,7 @@ public class ProjectileController : MonoBehaviour
 
     void Start()
     {
+        soundController = FindObjectOfType<SoundController>();
         gunController = FindObjectOfType<GunController>();
         UIController = FindObjectOfType<UIController>();
         rb = GetComponent<Rigidbody2D>();
@@ -102,6 +104,7 @@ public class ProjectileController : MonoBehaviour
                     this.setProjectileSpeed(0f);
                     this.GetComponent<SpriteRenderer>().enabled = false;
                     rocketExplosion.SetActive(true);
+                    soundController.PlayRocketExplostion();
                     Invoke("DestroyProjectile", 0.3f);
                 }
                 else

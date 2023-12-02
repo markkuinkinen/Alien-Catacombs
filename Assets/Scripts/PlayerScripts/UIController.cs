@@ -95,7 +95,7 @@ public class UIController : MonoBehaviour
 
     public void PauseGame()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isPaused && gameController.canPause)
         {
             PauseMenu.SetActive(true);
             playerIsPaused = true;
@@ -104,7 +104,7 @@ public class UIController : MonoBehaviour
             gunController.isShooting = false;
             gunController.canShoot = false;
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && isPaused)
+        else if (Input.GetKeyDown(KeyCode.Escape) && isPaused && gameController.canPause)
         {
             PauseMenu.SetActive(false);
             playerIsPaused = false;
@@ -119,6 +119,7 @@ public class UIController : MonoBehaviour
         playerIsPaused = false;
         PauseMenu.SetActive(false);
         isPaused = false;
+        gunController.canShoot = true;
     }
 
     public void EnterStore()

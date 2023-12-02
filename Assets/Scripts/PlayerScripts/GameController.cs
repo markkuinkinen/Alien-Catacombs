@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
     public float currencyAmount;
 
     public bool inPlayScene;
+    public bool canPause;
 
     // Store upgrade multipliers
     static float damageMultiplier = 1f;
@@ -94,6 +95,7 @@ public class GameController : MonoBehaviour
             UIController.isPaused = true;
             gunController.isShooting = false;
             gunController.canShoot = false;
+            canPause = false;
 
             perkMenu.SetActive(true);
             perkController.displayPerks();
@@ -108,6 +110,8 @@ public class GameController : MonoBehaviour
     {
         if (currentHp <= 0)
         {
+            perkMenu.SetActive(false);
+            UIController.PauseMenu.SetActive(false);
             player.isAlive = false;
             UIController.ActivateDeathMenu();
             gunController.isShooting = false;
@@ -122,6 +126,7 @@ public class GameController : MonoBehaviour
         UIController.playerIsPaused = false;
         gunController.isShooting = false;
         gunController.canShoot = true;
+        canPause = true;
         perkMenu.SetActive(false);
     }
 

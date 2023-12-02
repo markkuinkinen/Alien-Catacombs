@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class KillObjectController : MonoBehaviour
 {
+    UIController uiController;
+    SoundController soundController;
     public GameObject projectilePrefab;
     public GameObject turret;
     public Transform projectileSpawnLocation;
@@ -11,10 +13,14 @@ public class KillObjectController : MonoBehaviour
     private float rotationSpeed = 160f;
 
     public float timer;
+    public float lifeTimer;
 
     void Start()
     {
-        
+        soundController = FindObjectOfType<SoundController>();
+        uiController = FindObjectOfType<UIController>();
+        timer = 0f;
+        lifeTimer = 0f;
     }
 
     // Update is called once per frame
@@ -22,19 +28,29 @@ public class KillObjectController : MonoBehaviour
     {
         if (isShooting)
         {
-            StartCoroutine(Rotating());
+            if (!uiController.isPaused)
+            {
+                lifeTimer += Time.deltaTime;
+                if (lifeTimer <= 4f)
+                {
+                    Rotate();
+                }
+                else
+                {
+                    Destroy(this.gameObject);
+                }
+            }
         }
-
     }
 
-    void shooting()
+    void Shoot()
     {
         timer += Time.deltaTime;
 
         if (timer > 0.1f)
         {
             GameObject projectileClone = Instantiate(projectilePrefab, projectileSpawnLocation.position, projectileSpawnLocation.rotation);
-
+            soundController.PlayGunSound(2);
             // Get the forward direction of the turret
             Vector2 turretForward = turret.transform.up;
 
@@ -52,12 +68,10 @@ public class KillObjectController : MonoBehaviour
     }
 
 
-    IEnumerator Rotating()
+    private void Rotate()
     {
         turret.transform.rotation *= Quaternion.Euler(0f, 0f, rotationSpeed * Time.deltaTime);
-        shooting();
-        yield return new WaitForSeconds(6f);
-        Destroy(this.gameObject);
+        Shoot();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
