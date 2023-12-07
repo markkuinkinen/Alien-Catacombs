@@ -7,6 +7,7 @@ public class CrystalGrabber : MonoBehaviour
 
     public GameObject spriteObject;
     public CircleCollider2D circleCollider;
+    UIController uiController;
 
     public GameObject playerMagnetIcon;
     public CircleCollider2D playerMagnet;
@@ -20,7 +21,7 @@ public class CrystalGrabber : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
-
+        uiController = FindObjectOfType<UIController>();
         playerMagnet = player.transform.Find("PlayerMagnet").GetComponent<CircleCollider2D>();
         Transform middleOfPlayer = player.transform.Find("MiddleOfPlayer");
         playerMagnetIcon = middleOfPlayer.Find("MagnetIcon").gameObject;
@@ -55,11 +56,20 @@ public class CrystalGrabber : MonoBehaviour
 
     void Update()
     {
-        if (magnetOn)
+        if (magnetOn && (!uiController.isPaused || !uiController.playerIsPaused))
         {
+            playerMagnet.enabled = true;
             timer += Time.deltaTime;
             grabAllCrystals();
+        }
+        else if (magnetOn && (uiController.isPaused || uiController.playerIsPaused))
+        {
+            playerMagnet.enabled = false;
+        }
 
+        if (!player.isAlive)
+        {
+            playerMagnet.enabled = false;
         }
     }
 
@@ -71,7 +81,7 @@ public class CrystalGrabber : MonoBehaviour
         circleCollider.enabled = false;
         playerMagnetIcon.SetActive(true);
 
-        if (timer > 4f)
+        if (timer > 8f)
         {
             playerMagnet.radius = playerMagnetRadius;
             playerMagnetIcon.SetActive(false);

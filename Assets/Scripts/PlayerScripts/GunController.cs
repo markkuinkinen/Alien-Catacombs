@@ -61,6 +61,7 @@ public class GunController : MonoBehaviour
         currentGun = 0;
         player = FindObjectOfType<PlayerController>();
         canShoot = true;
+        ammoAmountText.text = "~"; //"\u221E";
     }
 
     
@@ -160,21 +161,21 @@ public class GunController : MonoBehaviour
     {
         Debug.Log("rocket gun grabbed");
         currentGun = 1;
-        ammoAmount = 50;
+        ammoAmount = 100;
         ammoSpeed = 1;
         ammoHealth = 1;
         rateOfFire = 0.9f;
-        baseAmmoDamage = 20;
+        baseAmmoDamage = 15;
     }
     public void equipLaser()
     {
         Debug.Log("laser gun grabbed");
         currentGun = 2;
-        ammoAmount = 50;
+        ammoAmount = 100;
         ammoSpeed = 10;
         ammoHealth = 2000;
         rateOfFire = 0.7f;
-        baseAmmoDamage = 30;
+        baseAmmoDamage = 15;
     }
 
     private void OnTriggerEnter2D(Collider2D ammoType)
@@ -187,7 +188,7 @@ public class GunController : MonoBehaviour
             }
             else
             {
-                ammoAmount += 150;
+                ammoAmount += 100;
             }
             Destroy(ammoType.gameObject);
         }
@@ -199,7 +200,7 @@ public class GunController : MonoBehaviour
             }
             else
             {
-                ammoAmount += 150;
+                ammoAmount += 100;
             }
             Destroy(ammoType.gameObject);
         }
@@ -218,7 +219,7 @@ public class GunController : MonoBehaviour
             heldLaser.SetActive(false);
             heldRocket.SetActive(false);
 
-            ammoAmountText.text = "\u221E";
+            ammoAmountText.text = "~"; //"\u221E";
         }
         else if (currentGun == 1)   // Rocket
         {

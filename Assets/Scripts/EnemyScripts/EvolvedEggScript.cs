@@ -9,9 +9,9 @@ public class EvolvedEggScript : MonoBehaviour
     UIController uiController;
     PlayerController player;
     public List<GameObject> blood;
-    private float movespeed = 8.5f;
+    private float movespeed = 9.5f;
 
-    private float Health = 60;
+    private float Health = 70;
 
     [SerializeField]
     private float timer;
@@ -45,7 +45,7 @@ public class EvolvedEggScript : MonoBehaviour
                 directionOfPlayer = (player.GetComponent<Transform>().position - this.transform.position).normalized;
 
                 timer += Time.deltaTime;
-                if (timer < 4f)
+                if (timer < 3f)
                 {
                     movementTransform.Translate(directionToMove * movespeed * Time.deltaTime);
                 }

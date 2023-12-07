@@ -9,7 +9,7 @@ public class EyeController : MonoBehaviour
     Rigidbody2D rb;
     PlayerController player;
     public GameObject eyeCurrency;
-    private float movespeed = 3.5f;
+    private float movespeed = 4.5f;
     //public Transform centreOfEnemy;
     public List<GameObject> blood;
 
@@ -43,7 +43,7 @@ public class EyeController : MonoBehaviour
         transform.Translate(direction * movespeed * Time.deltaTime);
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 75));
     }
 
     public void dropBlood()

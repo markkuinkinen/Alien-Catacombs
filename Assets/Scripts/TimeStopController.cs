@@ -33,7 +33,7 @@ public class TimeStopController : MonoBehaviour
         clockSprite.SetActive(false);
         HitCollider.enabled = false;
         gunController.timeStopped = true;
-        if (timer >= 4f)
+        if (timer >= 8f)
         {
             gunController.timeStopped = false;
             uiController.enemyIsPaused = false;

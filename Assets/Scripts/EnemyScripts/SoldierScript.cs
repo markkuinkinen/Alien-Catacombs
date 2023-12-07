@@ -12,9 +12,9 @@ public class SoldierScript : MonoBehaviour
     public GameObject soldierCurrency;
     public List<GameObject> blood;
 
-    private float movespeed = 2f;
+    private float movespeed = 2.5f;
     [SerializeField]
-    private float Health = 40;
+    private float Health = 50;
 
     void Start()
     {

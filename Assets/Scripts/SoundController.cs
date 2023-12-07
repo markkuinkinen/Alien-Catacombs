@@ -50,7 +50,7 @@ public class SoundController : MonoBehaviour
     {
         if (selectedGun == 0)
         {
-            sfxPlayer.PlayOneShot(gunSound, sfxVolume);
+            sfxPlayer.PlayOneShot(gunSound, sfxVolume * 0.5f);
         }
         else if (selectedGun == 1)
         {

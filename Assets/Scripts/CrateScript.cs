@@ -11,9 +11,9 @@ public class CrateScript : MonoBehaviour
     public GameObject timeStop;
     public GameObject MagnetDrop;
 
-    private float Health;
-
     private GameObject[] droppables;
+
+    private bool hasDropped;
     void Update()
     {
         
@@ -21,30 +21,30 @@ public class CrateScript : MonoBehaviour
 
     private void Start()
     {
-        Health = 20f;
+
     }
 
     void dropSomething()
     {
-        droppables = new GameObject[] { droppedLaser, droppedRocket, droppedBeer, killObject, timeStop, MagnetDrop };
+        if (!hasDropped)
+        {
+            droppables = new GameObject[] { droppedLaser, droppedRocket, droppedBeer, killObject, timeStop, MagnetDrop };
 
-        GameObject droppedItem = Instantiate(droppables[Random.Range(0, 6)], this.transform.position, this.transform.rotation);
-        droppedItem.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -45));
-        Destroy(this.gameObject);
+            GameObject droppedItem = Instantiate(droppables[Random.Range(0, 6)], this.transform.position, this.transform.rotation);
+            droppedItem.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -45));
+            hasDropped = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Projectile")
         {
-            Health -= 10f;
-
-            if (Health <= 0)
-            {
-                dropSomething();
-            }
-
             Destroy(collision.gameObject);
+
+            dropSomething();
+            Destroy(this.gameObject);
+
         }
     }
 }

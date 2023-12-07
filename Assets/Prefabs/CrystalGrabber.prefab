@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 3c06a1cd5345e7e4e9aa9997087e816b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -118,7 +118,7 @@ Transform:
   m_Children:
   - {fileID: 3096565559748911965}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &337845275652931273
 MonoBehaviour:
@@ -132,11 +132,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 185a20b1fec920942aea588fc278e8ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMagnet: {fileID: 0}
   spriteObject: {fileID: 5026838608958681772}
   circleCollider: {fileID: 4228842618057287111}
   playerMagnetIcon: {fileID: 0}
+  playerMagnet: {fileID: 0}
+  player: {fileID: 0}
   timer: 0
+  playerMagnetRadius: 0
   magnetOn: 0
 --- !u!50 &1923887331565125075
 Rigidbody2D:

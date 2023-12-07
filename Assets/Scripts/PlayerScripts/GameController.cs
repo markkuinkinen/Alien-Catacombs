@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     UpgradeController upgradeController;
+    SpawnController spawnController;
     GunController gunController;
     PerkController perkController;
     UIController UIController;
@@ -50,6 +51,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        spawnController = FindObjectOfType<SpawnController>();
         gunController = FindObjectOfType<GunController>();
         perkController = FindObjectOfType<PerkController>();
         upgradeController = FindObjectOfType<UpgradeController>();
@@ -57,6 +59,7 @@ public class GameController : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         maxPlayerHealth = 100 * healthMultiplier;
         currentHp = maxPlayerHealth;
+        canPause = true;
     }
 
     void Update()
@@ -121,7 +124,18 @@ public class GameController : MonoBehaviour
 
     public void perkContinue()
     {
-        pointsToLevel += (pointsToLevel * 0.3f);
+        if (playerLevel % 3 == 0)
+        {
+            if (spawnController.spawnRange < 4)
+            {
+                spawnController.spawnRange++;
+            } 
+            else
+            {
+                spawnController.spawnCount += 2;
+                spawnController.spawnInterval -= 0.2f;
+            }
+        }
         UIController.isPaused = false;
         UIController.playerIsPaused = false;
         gunController.isShooting = false;

@@ -21,6 +21,9 @@ public class UIController : MonoBehaviour
     public Text playerLevelText;
     public Text currencyAmountText;
     public Text deathText;
+    public Text highscoreText;
+    [SerializeField]
+    static int highScore = 0;
 
     public bool isPaused;
     public bool playerIsPaused;
@@ -45,7 +48,16 @@ public class UIController : MonoBehaviour
 
     void trackDeathText()
     {
-        deathText.text = "You salvaged " + gameController.currencyAmount + " crystals\n" + gameController.getTotalCrystals() + " in total";
+        deathText.text = "You salvaged " + gameController.currencyAmount + " crystals\n" + gameController.getTotalCrystals() + " crystals in total";
+
+        if (gameController.totalExp > highScore)
+        {
+            highscoreText.text = "New High Score: " + gameController.totalExp.ToString();
+        }
+        else
+        {
+            highscoreText.text = "Score: " + gameController.totalExp.ToString();
+        }
     }
 
     void TrackHealth()
@@ -90,7 +102,7 @@ public class UIController : MonoBehaviour
 
     void trackCurrency()
     {
-        currencyAmountText.text = gameController.currencyAmount.ToString();
+        currencyAmountText.text = ((int)gameController.currencyAmount).ToString();
     }
 
     public void PauseGame()
@@ -129,6 +141,10 @@ public class UIController : MonoBehaviour
 
     public void RestartGame()
     {
+        if (gameController.totalExp > highScore)
+        {
+            highScore = (int)gameController.totalExp;
+        }
         SceneManager.LoadScene(1);
     }
 

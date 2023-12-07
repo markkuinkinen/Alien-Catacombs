@@ -130,14 +130,14 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(mouseDirection.y, mouseDirection.x) * Mathf.Rad2Deg;
         centreTransform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90f));
 
-        projectileDirection = ((Vector2)mousePos - (Vector2)transform.position);    //test zone
+        projectileDirection = ((Vector2)mousePos - (Vector2)transform.position);
 
 
         if (Input.GetMouseButtonDown(0) && gunController.canShoot)
         {
             gunController.isShooting = true;
         }
-        else if (Input.GetMouseButtonUp(0)) 
+        else if (Input.GetMouseButtonUp(0))
         {
             gunController.isShooting = false;
         }
@@ -179,14 +179,15 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector2(0, rb.velocity.y * gameController.returnMovespeedMultiplier());
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy" && !isInvulnerable)
+        if (collision.tag == "Enemy" && !isInvulnerable && this.tag != "PlayerMagnet")
         {
+            Debug.Log(collision.tag + " << enemys || this >> " + this.tag);
             gameController.currentHp -= 20;
             StartCoroutine(takingDamage());
         }
