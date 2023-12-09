@@ -73,13 +73,13 @@ public class SpawnController : MonoBehaviour
 
     public void spawnEnemiesOnTimer(float interval)
     {
-        spawnableEnemies = new GameObject[] { wormEnemy, eyeballEnemy, alienSoldierEnemy, eggBugEnemy }; //bossEnemy };
+        spawnableEnemies = new GameObject[] { wormEnemy, eyeballEnemy, alienSoldierEnemy, eggBugEnemy };
 
         Vector3 leftSpawn = new Vector3(player.transform.position.x - 23f, Random.Range(player.transform.position.y - 13f, player.transform.position.y + 13f));
         Vector3 rightSpawn = new Vector3(player.transform.position.x + 23f, Random.Range(player.transform.position.y - 13f, player.transform.position.y + 13f));
         Vector3 upSpawn = new Vector3(Random.Range(player.transform.position.x - 21, player.transform.position.x + 21), player.transform.position.y + 15);
         Vector3 downSpawn = new Vector3(Random.Range(player.transform.position.x - 21, player.transform.position.x + 21), player.transform.position.y - 15);
-        
+
         Vector3[] spawnPositions = new Vector3[] { leftSpawn, rightSpawn, upSpawn, downSpawn };
 
         if (interval > spawnInterval)
@@ -92,6 +92,7 @@ public class SpawnController : MonoBehaviour
             }
             enemySpawnTimer = 0;
         }
+    }
 
         //if (interval > spawnInterval)
         //{
@@ -308,7 +309,7 @@ public class SpawnController : MonoBehaviour
         //    enemySpawnTimer = 0f;
         //}
 
-    }
+    //}
 
     //this works for left and right side
     //public void spawnEnemiesOnTimer(float interval)
