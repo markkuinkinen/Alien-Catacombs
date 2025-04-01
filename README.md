@@ -2,12 +2,14 @@
 <img src ="https://github.com/user-attachments/assets/6de454fd-a98a-4e21-9ffe-4e209e5eaacc" height="200">
 </div>
 <div><br></div>
+
+## About
 Alien Catacombs is a top down survival shooter where the player must defeat hordes of enemies to survive. Collect crystals for upgrades to make it easier to achieve a high score.
 
 ## Demo
-https://markkuinkinen.itch.io/alien-catacombs
+[Play the game here!](https://markkuinkinen.itch.io/alien-catacombs)
 
-https://youtu.be/nVnLO6Y2Hdk
+[Watch the full playthrough](https://youtu.be/nVnLO6Y2Hdk)
 
 ## Game Overview
 
