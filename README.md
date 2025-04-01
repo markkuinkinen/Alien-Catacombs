@@ -11,7 +11,8 @@ https://youtu.be/nVnLO6Y2Hdk
 
 ## Game Overview
 
-![image](https://github.com/user-attachments/assets/8078570c-620b-4a0f-bb7f-911dff753bfe)
+![image](https://github.com/user-attachments/assets/80c1e2bb-0aab-47d2-a6c9-2fc6e0a034b0)
+
 
 ![image](https://github.com/user-attachments/assets/3544f1b8-ec44-49a2-8a8c-a1f8592e0670)
 ![image](https://github.com/user-attachments/assets/3f685f55-79bd-4823-92b0-4eb249171021)
@@ -22,4 +23,3 @@ https://youtu.be/nVnLO6Y2Hdk
 ![image](https://github.com/user-attachments/assets/f6de65df-83d4-44c2-87ed-a6a4b983eab5)
 
 
-![Copy of Alien](https://github.com/user-attachments/assets/6de454fd-a98a-4e21-9ffe-4e209e5eaacc)
